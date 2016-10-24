@@ -1,0 +1,38 @@
+/* AUTHOR */
+	Frank Taillandier, Consultant web
+	Contact: frank@taillandier.me
+	Twitter: @DirtyF
+	From: Toulouse, France
+
+/* SITE */
+	Last Updated: 2016/10/24
+	Language: French
+	Standards: HTML5, CSS3
+	Theme: Lanyon by @mdo
+	IDE: Atom
+	Components: 
+
+
+/* CONTRIBUTORS */
+	
+	Name: DirtyF
+	Site: https://github.com/DirtyF
+	
+	Name: lcaron
+	Site: https://github.com/lcaron
+	
+	Name: Narno
+	Site: https://github.com/Narno
+	
+	Name: antoinentl
+	Site: https://github.com/antoinentl
+	
+	Name: CedCheval
+	Site: https://github.com/CedCheval
+	
+	Name: enguerran
+	Site: https://github.com/enguerran
+	
+	Name: emmanuelclement
+	Site: https://github.com/emmanuelclement
+	

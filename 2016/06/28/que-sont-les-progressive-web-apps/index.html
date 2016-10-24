@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Begin Jekyll SEO tag v2.0.0 -->
+<title>Que sont les Progressive Web Apps ? - Frank Taillandier</title>
+<meta property="og:title" content="Que sont les Progressive Web Apps ?">
+<meta name="description" content="Grâce à un ensemble de spécifications standardisées, le Web mobile peut enfin rivaliser pour de bon avec le Web natif.">
+<meta property="og:description" content="Grâce à un ensemble de spécifications standardisées, le Web mobile peut enfin rivaliser pour de bon avec le Web natif.">
+<link rel="canonical" href="http://frank.taillandier.me/2016/06/28/que-sont-les-progressive-web-apps/">
+<meta property="og:url" content="http://frank.taillandier.me/2016/06/28/que-sont-les-progressive-web-apps/">
+<meta property="og:site_name" content="Frank Taillandier">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-06-28T00:00:00+02:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@DirtyF">
+<meta name="twitter:creator" content="@DirtyF">
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Que sont les Progressive Web Apps ?",
+    "datePublished": "2016-06-28T00:00:00+02:00",
+    "description": "Grâce à un ensemble de spécifications standardisées, le Web mobile peut enfin rivaliser pour de bon avec le Web natif.",
+    "logo": "http://frank.taillandier.me/assets/img/frank-taillandier.jpg",
+    "url": "http://frank.taillandier.me/2016/06/28/que-sont-les-progressive-web-apps/"
+  }
+</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- CSS -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="/assets/css/main.css?v=c253717fb77c548d4ecec55dfa89b7cfa9ded749">
+
+  <link type="application/atom+xml" rel="alternate" href="http://frank.taillandier.me/feed.xml" title="Frank Taillandier">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicons/apple-touch-icon-57x57.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/favicons/apple-touch-icon-60x60.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/favicons/apple-touch-icon-72x72.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/favicons/apple-touch-icon-76x76.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/favicons/apple-touch-icon-114x114.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/favicons/apple-touch-icon-120x120.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/favicons/apple-touch-icon-144x144.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/favicons/apple-touch-icon-152x152.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180.png?v=kPPNM6zR4x">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png?v=kPPNM6zR4x" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-194x194.png?v=kPPNM6zR4x" sizes="194x194">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png?v=kPPNM6zR4x" sizes="96x96">
+<link rel="icon" type="image/png" href="/assets/favicons/android-chrome-192x192.png?v=kPPNM6zR4x" sizes="192x192">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-16x16.png?v=kPPNM6zR4x" sizes="16x16">
+<link rel="manifest" href="/assets/favicons/manifest.json?v=kPPNM6zR4x">
+<link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg?v=kPPNM6zR4x" color="#757575">
+<link rel="shortcut icon" href="/assets/favicons/favicon.ico?v=kPPNM6zR4x">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/assets/favicons/mstile-144x144.png?v=kPPNM6zR4x">
+<meta name="msapplication-config" content="/assets/favicons/browserconfig.xml?v=kPPNM6zR4x">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Profiles -->
+  <link type="text/plain" rel="author" href="/humans.txt">
+  <link rel="meta" type="application/rdf+xml" title="FOAF" href="/foaf.rdf">
+
+  <!-- Analytics-->
+  
+    <meta name="google-site-verification" content="KhnXRq1e9zCBkD6X4vs_xwVc-6c-5an2vE7f0_-XMiE">
+  
+
+  <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-15560088-1', 'auto');
+ga('require', 'eventTracker', {
+  attributePrefix: 'data-ga-'
+});
+ga('require', 'outboundLinkTracker');
+ga('require', 'cleanUrlTracker', {
+  stripQuery: true
+});
+ga('require', 'pageVisibilityTracker', {
+  fieldsObj: {
+    nonInteraction: null
+  }
+});
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<script async src="/assets/js/autotrack.js"></script>
+
+</head>
+
+
+<body>
+
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Consultant web</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Accueil</a>
+
+    
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="/a-propos/" data-ga-category="sidebar" data-ga-event="click" data-ga-label="À propos">À propos</a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <ul class="social inline">
+      
+      
+      <li>
+        <a rel="me" title="S'abonner au flux" href="/feed.xml" data-ga-category="sidebar" data-ga-event="click" data-ga-label="feed"><svg width="16" height="20" class="icon icon-feed"><use xlink:href="#icon-feed"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="M'envoyer un mail" href="mailto:frank@taillandier.me" data-ga-category="sidebar" data-ga-event="click" data-ga-label="mail"><svg width="16" height="20" class="icon icon-mail"><use xlink:href="#icon-mail"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="Me suivre sur Twitter" href="https://twitter.com/DirtyF" data-ga-category="sidebar" data-ga-event="click" data-ga-label="twitter"><svg width="16" height="20" class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="Me suivre sur GitHub" href="https://github.com/DirtyF" data-ga-category="sidebar" data-ga-event="click" data-ga-label="github"><svg width="16" height="20" class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
+      </li>
+      
+    </ul>
+
+  </div>
+  <div class="sidebar-item">
+    <p>
+      © 2016
+    </p>
+  </div>
+</div>
+
+
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+  <div class="wrap">
+    <div class="masthead">
+      <div class="container">
+        <h3 class="masthead-title">
+            <a href="/" title="Home">Frank Taillandier</a>
+            <small>Consultant web</small>
+          </h3>
+      </div>
+    </div>
+
+    <div class="container content">
+      <div class="post">
+  <h1 class="post-title">Que sont les Progressive Web Apps ?</h1>
+  <span class="post-date">
+    
+      28
+
+juin
+  
+ 2016
+
+    
+  </span>
+  
+<span class="post-read-time" title="Temps de lecture estimé à 9 minutes">·  <svg width="16" height="20" class="icon icon-clock"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use></svg>
+  
+    9 minutes
+  
+</span>
+
+
+  <p>Le Web mobile essaie de combler depuis quelques années son retard en termes d’expérience utilisateur par rapport au natif. Face à l’utilisation majoritaire du mobile pour accéder au Web pour une grande partie de la population mondiale et aux problèmes de connectivité que nous connaissons tous, il était important d’apporter une réponse à ces problèmes, c’est désormais chose faite avec les <em>Progressive Web Apps</em>.</p>
+
+<p>Récemment s’est tenu le <a href="https://events.withgoogle.com/progressive-web-app-dev-summit/">Progressive Web Apps Dev Summit</a> qui a réuni les principaux acteurs du web, Google en tête, les vidéos sont dispos, je vous invite à aller en regarder quelques-unes pour en apprendre plus sur le sujet.</p>
+
+<p>Le mois dernier est paru <a href="http://blog.ionic.io/what-is-a-progressive-web-app/">une bonne introduction aux PWA sur le blog d’Ionic</a>, un framework qui permet de développer des applications web mobile hybride.</p>
+
+<p>Avec l’ami <a href="https://blog.ticabri.com/2016/06/28/le-web-progresse-grace-aux-progressive-web-apps/">Enguerran Colson</a> nous vous proposons ci-dessous une traduction en français afin de vous inciter à vous intéresser de plus près à cet ensemble de technologies qui permettent au web mobile de rivaliser enfin pour de bon avec le natif.</p>
+
+<!-- excerpt -->
+
+<hr>
+
+<p>Vous avez du sûrement déjà entendre parler des <em>Progressive Web Apps</em> (ou applications Web progressives), elles représentent le futur de l’humanité. Elles vont amener la paix sur Terre, mettre un terme à la famine, sauver les arcs-en-ciel et les licornes, restaurer l’équilibre de la force et bien d’autres choses encore. Chemin faisant, elles pourraient même faire avancer le Web, ramener un peu de parité entre le Web et les applications natives et aider les développeurs mobile à atteindre plus d’utilisateurs en dehors du confinement des <em>App Stores</em>.</p>
+
+<p>Ça a l’air bien beau tout ça… mais que sont exactement les <em>Progressive Web Apps</em> ?</p>
+
+<blockquote>
+  <p>Une <em>Progressive Web App</em> utilise les possibilités du web moderne pour délivrer une expérience utilisateur similaire à une application native. – <a href="https://developers.google.com/web/progressive-web-apps">Progressive Web Apps</a></p>
+</blockquote>
+
+<p>Les applications natives d’un <em>App Store</em> font des trucs comme envoyer des notifications, travailler en mode déconnecté, ressemblent à tout point de vue à une application (telle qu’imaginée par Apple et Google), se chargent depuis l’écran d’accueil, etc. En comparaison, les applications mobiles Web auxquelles nous accédons via un navigateur n’ont historiquement pas permis tout cela. Les <em>Progressive Web Apps</em> corrigent cela grâce de nouvelles API Web, de nouveaux concepts d’architecture et de nouveaux <em>buzzwords</em>.</p>
+
+<p>Pour être tout à fait clair, je parle des applications Web mobiles dans les <em>navigateurs</em>. Les applications hybrides comme Ionic et Cordova tournent sans restrictions dans un environnement natif avec toutes les fonctionnalités attendues de la part de n’importe quelle application. Mais prenez le contenu Web d’une application hybride et chargez-le dans un navigateur mobile et vous allez alors être contraint par les fonctionnalités du navigateur (de part à cause du niveau sécurité requis et d’autre part à cause des problèmes de standardisation d’API).</p>
+
+<p>Les <em>Progressive Web Apps</em> apportent les fonctionnalités attendues des applications natives à l’expérience de navigation Web sur un mobile en utilisant des technologies basées sur les standards et en tournant dans un conteneur sécurisé accessible à tous sur le Web.</p>
+
+<p>En somme, les <em>Progressive Web Apps</em> décrivent toute une série de technologies, de concepts d’architecture et d’API Web qui travaillent de concert pour proposer une expérience similaire aux applications natives sur le Web mobile.
+Voyons ensemble les quelques tenants de base des <em>Progressive Web Apps</em>.</p>
+
+<h2 id="les-service-workers">Les <em>Service Workers</em>
+</h2>
+
+<p>Les <em>Service Workers</em> sont un outil à la fois incroyablement puissant et déroutant, qui se cache derrière une <em>Progressive Web App</em>. Il permet de passer en mode hors-ligne, d’envoyer des notifications, de mettre à jour les contenus en arrière-plan, de mettre en cache du ontenu et tout un tas d’autres trucs.</p>
+
+<p>Dit de manière simple, un <em>Service Worker</em> est un script qui tourne en arrière-plan, indépendamment de votre application et qui s’exécute en réponse à des événements comme des requêtes réseau, des notifications push, des changements de connectivité et bien d’autres choses.</p>
+
+<p>J’ai déjà entendu parler d’un <em>Service Worker</em> comme d’un « proxy », et je pense que c’est une description plutôt fidèle. On peut écouter les événements comme par exemple un <code class="highlighter-rouge">fetch</code> qui se produisent à chaque fois qu’une requête réseau est émise. On peut prendre en considération cet événement avec un contrôle très fin : vérifier la présence des données en cache et les rendre directement ou permettre à la requête de poursuivre sa route jusqu’au serveur. Notre script agit alors comme un proxy, un <em>middleware</em>, pour une requête.</p>
+
+<p>Le grand pouvoir et la flexibilité d’un <em>Service Worker</em> peut le rendre très complexe et en général les développeurs vont vouloir utiliser des recettes prêtes à l’emploi pour des cas d’utilisation classique tel que le mode hors-ligne. <a href="https://serviceworke.rs/">Mozilla dispose d’une très bonne documentation de référence</a> avec des recettes avec un <em>Service Worker</em> qui démontre la myriade d’applications possibles avec des exemples de code. Par exemple <a href="https://serviceworke.rs/offline-fallback_service-worker_doc.html">comment faire un mode hors-ligne simple</a> qui intercepte les événements <code class="highlighter-rouge">fetch</code> et retourne les données depuis le cache si la requête réseau a échoué. Google propose également <a href="https://github.com/GoogleChrome/samples/tree/gh-pages/service-worker">quelques bons exemples d’utilisation de Service Workers</a>.</p>
+
+<p>Ce qu’il faut surtout retenir : un <em>Service Worker</em> est simplement un fichier JavaScript comme un autre, tournant en tâche de fond et qui se déclenche via des événements et c’est à vous de décider ce qu’il faut coder pour prendre en charge le cache, les notifications push, la récupération des données serveur, etc. Puisque les développeurs finissent par utiliser les mêmes “recettes” pour effectuer les tâches les plus communes (comme le support hors-ligne), nous allons vraisemblablement réutliser du code existant pour nous simplifier la vie. Les <em>Service Workers</em> sont <a href="http://caniuse.com/#feat=serviceworkers">supportés sur Android avec Chrome 50 et Firefox 46, mais pas encore sur iOS Safari et IE Mobile</a>.</p>
+
+<h2 id="app-shell">App Shell</h2>
+
+<p>Le modèle <em>App Shell</em> (littéralement Coquille d’Application) est un principe simple de conception dans lequel l’application Web mobile charge initialement une coquille basique de l’interface utilisateur de l’application, avant de charger ensuite le contenu de l’application. <em>App Shell</em> n’est pas une API Web ou un framework mais plutôt une approche de conception que les développeurs peuvent adopter pour adhérer à ce qui est permis par les capacités de mise en cache d’un <em>Service Worker</em>. Vous pourriez trouver que c’est assez évident, que c’est une approche logique, rendue plus sérieuse par un <em>buzzword</em>.</p>
+
+<p>Avec le modèle <em>App Shell</em>, nous faisons en sorte de bien conserver séparément la coquille de l’interface de notre application et son contenu puis nous les mettons en cache de manière séparée également. Idéalement notre App Shell est mise en cache pour être disponible très rapidement lorsque l’utilisateur reviendra sur notre Web App. Avoir la coquille et le contenu chargés séparément donne théoriquement à l’utilisateur une impression  de performance et d’utilisabilité de l’application.</p>
+
+<p>Et dans le cadre d’une application Ionic, nous pouvons charger l’agencement de l’application Ionic immédiatement (les onglets, la navigation, le menu, etc.), le mettre en cache via un <em>Service Worker</em>, et puis récupérer et mettre à jour le contenu avec du JavaScript après que l’App Shell se soit chargée.</p>
+
+<p>Nous sommes en train d’ajouter un meilleur support des concepts PWA dans Ionic, vous pouvez vous attendre à voir apparaître une approche <em>App Shell</em> pour toutes les applications Ionic qui seront déployées en tant que Web App mobile, avec un <em>Service Worker</em> prêt à l’emploi pour les recettes habituelles telles que la mise en cache, le support hors-ligne, le rafraichissement du contenu en arrière-plan.</p>
+
+<h2 id="installabilit-et-manifeste-dapplication">Installabilité et manifeste d’application</h2>
+
+<p>Historiquement les applications Web mobiles ne s’installaient pas comme une application sur l’écran d’accueil. Bien sûr un utilisateur pouvait ajouter un raccourci vers son site mobile sur son écran iOS ou Android (non y’a vraiment des gens qui font ça ?) et l’expérience n’était pas aussi concluante car l’application ne bénéficiait pas des fonctionnalités locales qu’on peut attendre des applications natives.</p>
+
+<p>C’est en train de changer. Récemment Chrome et Firefox sur Android ont ajouté <a href="https://developers.google.com/web/updates/2014/11/Support-for-installable-web-apps-with-webapp-manifest-in-chrome-38-for-Android?hl=en">le support de l’installation d’applications Web sur l’écran d’accueil</a> avec une bannière d’installation native, tout comme les bannières d’applications natives auxquelles nous sommes habitués. Pour dire au navigateur que notre site web mobile peut s’installer comme une application, nous écrivons un fichier <a href="https://github.com/GoogleChrome/samples/blob/gh-pages/web-application-manifest/manifest.json"><code class="highlighter-rouge">manifest.json</code></a> et nous créons un lien dans notre page web principale (voir le deuxième lien ci-dessus pour un exemple complet).</p>
+
+<p>iOS ne propose pas encore cette fonctionnalité, simplement la possibilité de créer un raccourci sur l’écran d’accueil, donc l’expérience ne sera pas aussi fluide, mais nous pouvons espérer recevoir de bonnes nouvelles de la part d’Apple cette année 🍪.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Les <em>Progressive Web Apps</em> sont à la fois de nouvelles API, des modèles de conception et du jargon marketing. Le Web mobile arrive à égalité avec les applications installables depuis un <em>App Store</em> grâce au fichier <code class="highlighter-rouge">manifest</code> pour les applications, le support de l’installation sur l’écran d’accueil, la possibilité de faire tourner des tâches de fond avec les <em>Services Workers</em>, d’améliorer le temps de chargement avec un App Shell et la croyance renouvelée que les développeurs Web peuvent aussi proposer une excellente expérience d’application mobile.</p>
+
+<p>Chez Ionic, nous pensons que le web est le futur des applications. Il tourne partout, c’est la pile technologique la plus connue et il fait tourner un nombre croissant d’applications. Aujourd’hui les technologies Web sont utilisées par des millions d’applications dans les <em>App Stores</em>, mais jusqu’à présent le Web mobile avait proposé une expérience dégradée, obligeant les gens à se diriger vers des <em>App Stores</em> pour avoir la totale. Les <em>Progressive Web Apps</em> changent la donne.</p>
+
+<p>Dans les prochains mois, nous allons livrer de nouvelles fonctionnalités pour les applications Ionic qui permettent aux développeurs de bénéficier du meilleur des deux mondes : un déploiement d’application <em>cross-plateform</em> pour iOS, Android et Windows, ainsi qu’un déploiement vers le Web mobile en tant que <em>Progressive Web App</em> avec le même code. Bientôt les développeurs Ionic pourront bénéficier à la fois de la distribution dans les <em>App Stores</em> ainsi que de l’accès instantané pour des milliards d’utilisateurs du Web mobile et des recherches Google. Fini les interstitiels des <em>App Stores</em> et la compilation séparée des applications natives et Web mobile. Restez à l’écoute ! 🤘</p>
+
+
+  <hr>
+
+  <footer>
+    
+      
+<div id="disqus_thread"></div>
+<script>
+  var disqus_config = function() {
+    this.page.url = 'http://frank.taillandier.me/2016/06/28/que-sont-les-progressive-web-apps/';
+    this.page.identifier = 'http://frank.taillandier.me/2016/06/28/que-sont-les-progressive-web-apps/';
+    this.page.title = 'Que sont les Progressive Web Apps&nbsp;?';
+  };
+
+  // DON'T EDIT BELOW THIS LINE
+  (function() {
+    var d = document,
+      s = d.createElement('script');
+    s.src = 'https://franktaillandier.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+
+
+    
+
+    <h2>Améliorez cet article</h2>
+    <p>Une correction à apporter ? <a href="https://github.com/DirtyF/frank.taillandier.me/edit/master/_posts/2016-06-28-que-sont-les-progressive-web-apps.md">Éditez le contenu</a>.</p>
+  </footer>
+
+</div>
+
+<div class="related">
+  <h2>Articles récents</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/10/02/ne-passons-pas-a-cote-des-choses-simples/">
+            Ne passons pas à côté des choses simples
+            <small>2
+
+octobre
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/30/dix-facons-de-rendre-un-produit-excellent/">
+            10 façons de rendre un produit excellent
+            <small>30
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/28/traitement-de-texte-multicanal/">
+            Traitement de texte multicanal
+            <small>28
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+<p>
+  Pour être informé des prochains articles, abonnez vous au <a href="/feed.xml">flux RSS</a>.
+</p>
+
+<p class="copy"></p>
+
+    </div>
+  </div>
+
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {};
+        var t = performance.timing || {};
+
+        if (!t) {
+          //fail silently
+          return;
+        }
+        var start = t.navigationStart,
+          end = t.loadEventEnd
+        loadTime = (end - start) / 1000;
+
+        var copy = document.getElementsByClassName('copy');
+        copy[0].innerHTML += "<span class='loaded'>Page chargée en <strong>" + loadTime + " secondes</strong>.</span>";
+      }, 0);
+    };
+
+    (function(document) {
+      var toggle = document.querySelector('.sidebar-toggle');
+      var sidebar = document.querySelector('#sidebar');
+      var checkbox = document.querySelector('#sidebar-checkbox');
+
+      document.addEventListener('click', function(e) {
+        var target = e.target;
+
+        if (!checkbox.checked ||
+          sidebar.contains(target) ||
+          (target === checkbox || target === toggle)) return;
+
+        checkbox.checked = false;
+      }, false);
+    })(document);
+  </script>
+  <svg class="symbolset" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="icon-mail" viewbox="0 0 1024 1024">
+      <title>Mail</title>
+      <path class="path1" d="M853.31 0h-682.62c-93.88 0-170.69 76.784-170.69 170.658v682.656c0 93.876 76.81 170.686 170.69 170.686h682.622c93.938 0 170.688-76.81 170.688-170.686v-682.656c0-93.874-76.75-170.658-170.69-170.658zM256 256h512c9.138 0 18.004 1.962 26.144 5.662l-282.144 329.168-282.144-329.17c8.14-3.696 17.006-5.66 26.144-5.66zM192 704v-384c0-1.34 0.056-2.672 0.14-4l187.664 218.94-185.598 185.6c-1.444-5.338-2.206-10.886-2.206-16.54zM768 768h-512c-5.654 0-11.202-0.762-16.54-2.206l182.118-182.118 90.422 105.496 90.424-105.494 182.116 182.118c-5.34 1.442-10.886 2.204-16.54 2.204zM832 704c0 5.654-0.762 11.2-2.206 16.54l-185.598-185.598 187.664-218.942c0.084 1.328 0.14 2.66 0.14 4v384z"></path>
+    </symbol>
+    <symbol id="icon-twitter" viewbox="0 0 1024 1024">
+      <title>Twitter</title>
+      <path class="path1" d="M853.342 0h-682.656c-93.874 0-170.686 76.81-170.686 170.69v682.624c0 93.936 76.812 170.686 170.686 170.686h682.656c93.876 0 170.658-76.75 170.658-170.69v-682.62c0-93.88-76.782-170.69-170.658-170.69zM766.478 381.48c0.252 5.632 0.38 11.296 0.38 16.988 0 173.51-132.070 373.588-373.584 373.588-74.15 0-143.168-21.738-201.276-58.996 10.272 1.218 20.724 1.84 31.322 1.84 61.518 0 118.134-20.992 163.072-56.21-57.458-1.054-105.948-39.020-122.658-91.184 8.018 1.532 16.244 2.36 24.704 2.36 11.976 0 23.578-1.61 34.592-4.61-60.064-12.066-105.326-65.132-105.326-128.75 0-0.554 0-1.104 0.012-1.652 17.7 9.834 37.948 15.742 59.47 16.424-35.232-23.546-58.414-63.736-58.414-109.292 0-24.064 6.476-46.62 17.78-66.010 64.76 79.44 161.51 131.712 270.634 137.19-2.238-9.612-3.4-19.632-3.4-29.924 0-72.512 58.792-131.298 131.304-131.298 37.766 0 71.892 15.944 95.842 41.462 29.908-5.886 58.008-16.814 83.38-31.862-9.804 30.662-30.624 56.394-57.732 72.644 26.56-3.174 51.866-10.232 75.412-20.674-17.594 26.328-39.854 49.454-65.514 67.966z"></path>
+    </symbol>
+    <symbol id="icon-feed" viewbox="0 0 1024 1024">
+      <title>RSS Feed</title>
+      <path class="path1" d="M853.34 0h-682.654c-93.876 0-170.686 76.812-170.686 170.688v682.628c0 93.934 76.812 170.684 170.688 170.684h682.652c93.876 0 170.66-76.748 170.66-170.684v-682.628c0-93.876-76.784-170.688-170.66-170.688zM278.944 831.248c-47.97 0-86.944-38.692-86.944-86.628 0-47.684 38.972-86.812 86.944-86.812 48.158 0 87.060 39.128 87.060 86.812-0.002 47.936-38.904 86.628-87.060 86.628zM497.468 831.996c0-81.81-31.808-158.818-89.46-216.444-57.714-57.75-134.376-89.626-215.904-89.626v-125.186c237.652 0 431.126 193.442 431.126 431.254l-125.762 0.002zM719.628 831.996c0-291.062-236.658-527.94-527.376-527.94v-125.248c360.002 0 652.946 293.124 652.946 653.192l-125.57-0.004z"></path>
+    </symbol>
+    <symbol id="icon-github" viewbox="0 0 1024 1024">
+      <title>Github</title>
+      <path class="path1" d="M512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM816.056 816.056c-39.518 39.516-85.512 70.532-136.708 92.186-13.006 5.5-26.214 10.328-39.6 14.492v-76.734c0-40.334-13.834-70-41.5-89 17.334-1.666 33.25-4 47.75-7s29.834-7.334 46-13 30.666-12.416 43.5-20.25 25.166-18 37-30.5 21.75-26.666 29.75-42.5 14.334-34.834 19-57 7-46.584 7-73.25c0-51.666-16.834-95.666-50.5-132 15.334-40 13.666-83.5-5-130.5l-12.5-1.5c-8.666-1-24.25 2.666-46.75 11s-47.75 22-75.75 41c-39.666-11-80.834-16.5-123.5-16.5-43 0-84 5.5-123 16.5-17.666-12-34.416-21.916-50.25-29.75s-28.5-13.166-38-16-18.334-4.584-26.5-5.25-13.416-0.834-15.75-0.5-4 0.666-5 1c-18.666 47.334-20.334 90.834-5 130.5-33.666 36.334-50.5 80.334-50.5 132 0 26.666 2.334 51.084 7 73.25s11 41.166 19 57 17.916 30 29.75 42.5 24.166 22.666 37 30.5 27.334 14.584 43.5 20.25 31.5 10 46 13 30.416 5.334 47.75 7c-27.334 18.666-41 48.334-41 89v78.23c-15.098-4.494-29.98-9.804-44.6-15.988-51.194-21.654-97.188-52.67-136.706-92.186-39.516-39.518-70.534-85.512-92.186-136.708-22.398-52.958-33.756-109.262-33.756-167.348s11.358-114.39 33.758-167.35c21.654-51.194 52.67-97.188 92.186-136.706s85.512-70.534 136.706-92.186c52.96-22.4 109.264-33.758 167.35-33.758s114.39 11.358 167.35 33.758c51.196 21.654 97.19 52.67 136.708 92.186 39.516 39.516 70.532 85.512 92.186 136.706 22.398 52.96 33.756 109.264 33.756 167.35s-11.358 114.39-33.758 167.35c-21.654 51.194-52.67 97.19-92.186 136.706z"></path>
+    </symbol>
+    <symbol id="icon-clock" viewbox="0 0 1024 1024">
+        <title>Clock</title>
+        <path class="path1" d="M658.744 749.256l-210.744-210.746v-282.51h128v229.49l173.256 173.254zM512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM512 896c-212.078 0-384-171.922-384-384s171.922-384 384-384c212.078 0 384 171.922 384 384s-171.922 384-384 384z"></path>
+        </symbol>
+  </defs>
+</svg>
+
+  <script id="dsq-count-scr" src="//franktaillandier.disqus.com/count.js" async></script>
+  <script>if ("serviceWorker" in navigator) {navigator.serviceWorker.register("/sw.js").then(function(registration) {console.log("ServiceWorker registration successful with scope: ",    registration.scope);}).catch(function(err) {console.log("ServiceWorker registration failed: ", err);});}</script>
+</body>
+
+</html><!-- Proudly Powered by GitHub | Generated 2016-10-24 23:18:36 +0200 | Revision c253717fb77c548d4ecec55dfa89b7cfa9ded749 -->

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Begin Jekyll SEO tag v2.0.0 -->
+<title>Ne passons pas à côté des choses simples - Frank Taillandier</title>
+<meta property="og:title" content="Ne passons pas à côté des choses simples">
+<meta name="description" content="Générer des sites performants et sécurisés, c’est possible sans base de données et sans serveur.">
+<meta property="og:description" content="Générer des sites performants et sécurisés, c’est possible sans base de données et sans serveur.">
+<link rel="canonical" href="http://frank.taillandier.me/2016/10/02/ne-passons-pas-a-cote-des-choses-simples/">
+<meta property="og:url" content="http://frank.taillandier.me/2016/10/02/ne-passons-pas-a-cote-des-choses-simples/">
+<meta property="og:site_name" content="Frank Taillandier">
+<meta property="og:image" content="http://frank.taillandier.me/assets/img/presentations/ne-passons-pas-a-cote-des-choses-simples/galets.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-10-02T00:00:00+02:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@DirtyF">
+<meta name="twitter:creator" content="@DirtyF">
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Ne passons pas à côté des choses simples",
+    "image": "http://frank.taillandier.me/assets/img/presentations/ne-passons-pas-a-cote-des-choses-simples/galets.png",
+    "datePublished": "2016-10-02T00:00:00+02:00",
+    "description": "Générer des sites performants et sécurisés, c’est possible sans base de données et sans serveur.",
+    "logo": "http://frank.taillandier.me/assets/img/frank-taillandier.jpg",
+    "url": "http://frank.taillandier.me/2016/10/02/ne-passons-pas-a-cote-des-choses-simples/"
+  }
+</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- CSS -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="/assets/css/main.css?v=c253717fb77c548d4ecec55dfa89b7cfa9ded749">
+
+  <link type="application/atom+xml" rel="alternate" href="http://frank.taillandier.me/feed.xml" title="Frank Taillandier">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicons/apple-touch-icon-57x57.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/favicons/apple-touch-icon-60x60.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/favicons/apple-touch-icon-72x72.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/favicons/apple-touch-icon-76x76.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/favicons/apple-touch-icon-114x114.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/favicons/apple-touch-icon-120x120.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/favicons/apple-touch-icon-144x144.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/favicons/apple-touch-icon-152x152.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180.png?v=kPPNM6zR4x">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png?v=kPPNM6zR4x" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-194x194.png?v=kPPNM6zR4x" sizes="194x194">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png?v=kPPNM6zR4x" sizes="96x96">
+<link rel="icon" type="image/png" href="/assets/favicons/android-chrome-192x192.png?v=kPPNM6zR4x" sizes="192x192">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-16x16.png?v=kPPNM6zR4x" sizes="16x16">
+<link rel="manifest" href="/assets/favicons/manifest.json?v=kPPNM6zR4x">
+<link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg?v=kPPNM6zR4x" color="#757575">
+<link rel="shortcut icon" href="/assets/favicons/favicon.ico?v=kPPNM6zR4x">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/assets/favicons/mstile-144x144.png?v=kPPNM6zR4x">
+<meta name="msapplication-config" content="/assets/favicons/browserconfig.xml?v=kPPNM6zR4x">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Profiles -->
+  <link type="text/plain" rel="author" href="/humans.txt">
+  <link rel="meta" type="application/rdf+xml" title="FOAF" href="/foaf.rdf">
+
+  <!-- Analytics-->
+  
+    <meta name="google-site-verification" content="KhnXRq1e9zCBkD6X4vs_xwVc-6c-5an2vE7f0_-XMiE">
+  
+
+  <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-15560088-1', 'auto');
+ga('require', 'eventTracker', {
+  attributePrefix: 'data-ga-'
+});
+ga('require', 'outboundLinkTracker');
+ga('require', 'cleanUrlTracker', {
+  stripQuery: true
+});
+ga('require', 'pageVisibilityTracker', {
+  fieldsObj: {
+    nonInteraction: null
+  }
+});
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<script async src="/assets/js/autotrack.js"></script>
+
+</head>
+
+
+<body>
+
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Consultant web</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Accueil</a>
+
+    
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="/a-propos/" data-ga-category="sidebar" data-ga-event="click" data-ga-label="À propos">À propos</a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <ul class="social inline">
+      
+      
+      <li>
+        <a rel="me" title="S'abonner au flux" href="/feed.xml" data-ga-category="sidebar" data-ga-event="click" data-ga-label="feed"><svg width="16" height="20" class="icon icon-feed"><use xlink:href="#icon-feed"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="M'envoyer un mail" href="mailto:frank@taillandier.me" data-ga-category="sidebar" data-ga-event="click" data-ga-label="mail"><svg width="16" height="20" class="icon icon-mail"><use xlink:href="#icon-mail"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="Me suivre sur Twitter" href="https://twitter.com/DirtyF" data-ga-category="sidebar" data-ga-event="click" data-ga-label="twitter"><svg width="16" height="20" class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="Me suivre sur GitHub" href="https://github.com/DirtyF" data-ga-category="sidebar" data-ga-event="click" data-ga-label="github"><svg width="16" height="20" class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
+      </li>
+      
+    </ul>
+
+  </div>
+  <div class="sidebar-item">
+    <p>
+      © 2016
+    </p>
+  </div>
+</div>
+
+
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+  <div class="wrap">
+    <div class="masthead">
+      <div class="container">
+        <h3 class="masthead-title">
+            <a href="/" title="Home">Frank Taillandier</a>
+            <small>Consultant web</small>
+          </h3>
+      </div>
+    </div>
+
+    <div class="container content">
+      <div class="post">
+  <h1 class="post-title">Ne passons pas à côté des choses simples</h1>
+  <span class="post-date">
+    
+      2
+
+octobre
+  
+ 2016
+
+    
+  </span>
+  
+<span class="post-read-time" title="Temps de lecture estimé à 17 minutes">·  <svg width="16" height="20" class="icon icon-clock"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use></svg>
+  
+    17 minutes
+  
+</span>
+
+
+  <p>Ce texte est destiné à servir de support pour les <a href="/presentations/ne-passons-pas-a-cote-des-choses-simples/">slides de présentation</a> de la mini-conférence donnée à <a href="http://www.paris-web.fr/2016/">Paris Web 2016</a>.</p>
+
+<p>Il était difficile de couvrir en 15 minutes un sujet aussi vaste que les processus modernes de développement et de déploiement, ainsi que tout l’écosystème actuel à disposition pour servir des sites beaucoup plus performants et sécurisés.</p>
+
+<p>Avec <a href="http://bertrandkeller.info/">Bertrand</a>, nous voulions surtout partager nos retours d’expérience et le plaisir retrouvé que nous avions à apprendre et à concevoir itérativement des sites de qualité où le contenu est roi. Donner envie aux développeurs front de reprendre la main sur leur code tout en proposant une expérience optimale aux utilisateurs.</p>
+
+<p>C’était la mission impossible que nous nous étions fixés en proposant une <a href="https://www.paris-web.fr/2016/conferences/ne-passons-pas-a-cote-des-choses-simples.php">mini-conférence à Paris Web 2016</a>. La bonne blague. Donc pour ne pas rester sur la frustration de n’avoir pas pu traiter ce sujet plus en détail, voyant bien que <a href="https://github.com/m4dz" class="user-mention">@m4dz</a> agitait frénétiquement le carton indiquant la fin du temps qui nous était imparti, je vous propose de revenir rapidement si vous le voulez bien sur les problèmes récurrents que nous pouvons rencontrer aujourd’hui en production et comment en utilisant des process adaptés, ils peuvent aisément être résolus.</p>
+
+<!-- excerpt -->
+
+<p>Il arrive bien souvent qu’en cas de pic de trafic, un site web ne réponde plus car le serveur ne tient pas la charge à cause d’accès concurrents trop importants à la base de données. Il est également courant d’être exposé à des failles de sécurité quand on ne met pas à jour rapidement son logiciel de gestion de contenu par exemple. Dès que vous faites le choix d’utiliser une stack comme LAMP (Linux, Apache, MySQL, PHP), vous choisissez également de vous engager à assurer ou à déléguer la maintenance serveur à un prestataire.</p>
+
+<p>Dans le même temps, cela fait déjà <a href="https://www.paris-web.fr/2008/-samedi-15-novembre-technique-.html#hcalendar-Paris-Web_2008-15_novembre_2008-atelier-performance_client">au moins huit ans</a> que l’on sait que le temps de chargement d’un site web est un facteur crucial en terme d’utilisabilité, de retention et de taux de conversion. C’est encore plus vrai de nos jours maintenant que le mobile est devenu le périphérique d’accès principal à Internet. Ce n’est pas <a href="https://www.paris-web.fr/2016/conferences/www-world-wide-web-not-wealthy-westerners-web.php">Bruce Lawson</a> qui me contredira.</p>
+
+<p>Les sites qui se contentent d’afficher des contenus, que ce soit des articles de blog, des présentations de produit, des documentations en ligne peuvent depuis déjà une dizaine d’année utiliser des <a href="/2016/03/08/les-gestionnaires-de-contenu-statique/">générateurs de site statique</a> et les faire héberger sur des CDN afin de limiter les temps de latence du réseau.</p>
+
+<p>Avec ces générateurs, plutôt que d’être enfermées dans des bases de données, les données sont stockées sous forme de fichiers texte dans des formats lisibles et facilement éditables. <a href="http://daringfireball.net/projects/markdown/">Markdown</a> est le format qu’on rencontre le plus souvent pour stocker les textes et pour des données structurées on fera appel à <a href="http://json.org/json-fr.html">JSON</a> ou <a href="http://www.yaml.org/spec/1.2/spec.html#Preview">YAML</a>.</p>
+
+<p>Les générateurs vont nous permettre de concevoir des modèles de pages pour y insérer nos contenus et nos données. Nous obtiendrons en sortie un site, composé de pages web au format HTML, de CSS et de JavaScript si besoin. Une fois notre site généré, il ne reste plus qu’à le déposer sur un serveur HTTP.</p>
+
+<p>On revient à une communication simple entre un navigateur et un serveur HTTP, qui va pouvoir facilement mettre en cache les contenus, puisque ce sont les mêmes qui sont servis à tout le monde, ce qui entraîne automatiquement un gain de performance drastique. Si vous avez mis en place HTTPS c’est encore mieux - merci <a href="https://letsencrypt.org/">Let’s Encrypt</a> - vous pourrez y ajouter un <em>service worker</em> pour faire du <em>offline-first</em> et transformer votre site en <a href="/2016/06/28/que-sont-les-progressive-web-apps/">Progressive Wep App</a>. <a href="https://www.paris-web.fr/2016/conferences/progressive-web-apps-le-futur-du-web-arrive.php">Hubert Sablonnière</a> vous en parlera bien mieux que moi, mais là il est parti au ski avec ses amis.</p>
+
+<p>Dans ce scénario donc, la génération des pages est complètement distincte de l’hébergement. En séparant ces deux problématiques, on évite tous les problèmes mentionnés précédemment. Au final, nous obtenons un site web beaucoup plus performant, même en cas de fort trafic, d’autant plus facilement reproductible s’il est hébergé sur un réseau de publication de contenu (CDN). On évite par la même occasion des frais coûteux de maintenance et le risque d’intrusion ou celui de voir son site défiguré.</p>
+
+<p>Ce mode de fonctionnement présente donc de sacrés avantages pour des frais minimes. C’est pour cette raison que des sociétés comme Mailchimp l’ont adopté<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> depuis plusieurs années, que ce soit pour présenter leur offre, fournir de la documentation à leurs clients ou aux développeurs.</p>
+
+<p>Si ce workflow de développement et de déploiement est optimal, qu’en est-il de celui des contributeurs, ceux qui doivent ajouter et mettre à jour les contenus ? Ils sont maintenant habitués à des interfaces utilisateurs de saisie, qui leur permettent d’exécuter ces tâches de manière intuitive.</p>
+
+<p>Si les générateurs de site statique sont performants, c’est que ce sont pour la plupart des outils en ligne de commande, facilement exécutables dans n’importe quel environnement. Pour palier à ce manque, il existe néanmoins des solutions et elles sont logiquement de plus en plus nombreuses depuis quelques années, puisque la popularité de ce qu’on appelle désormais le <em>statique</em> est grandissante.</p>
+
+<p>La première solution est de passer par un <a href="https://css-tricks.com/what-is-a-headless-cms/">Headless CMS</a> chargé de s’occuper uniquement de la manipulation des contenus, mais pas de leur affichage côté client. Encore une fois on partage les responsabilités, chacun son rôle. Des services comme <a href="https://www.contentful.com">Contenful</a> ou <a href="https://prismic.io/">Prismic</a> fournissent aux développeurs des APIs qui permettent ensuite de récupérer vos contenus. Des <em>headless CMS</em>, on devrait en voir de plus en plus maintenant que les frameworks JS comme React s’occupent des vues côté front. Drupal a même publié un <a href="https://github.com/davidhwang/horseman#a-manifesto">manifeste</a> où il est écrit qu’ils veulent rester le backend de prédilection de ces frameworks côté client, qui sont le futur du web.</p>
+
+<p>La deuxième solution est de passer par un service en ligne qui se connectera à votre dépôt de code et vous servira d’interface d’édition de vos contenus. Il en existe plusieurs<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>, je ne vais pas tous les énumérer.</p>
+
+<p>Ce qu’il est important de retenir, c’est que cela permet à des personnes qui n’ont aucune idée de ce qui se trame dessous, de pouvoir continuer à avoir une expérience utilisateur d’édition de contenus, similaire à celle qu’ils connaissent déjà dans des CMS comme Wordpress ou Drupal. Les interfaces sont même pour le moment plus simples à prendre en main, car elles proposent moins d’options, donc moins de charge cognitive.</p>
+
+<p>Il n’y a pas que dans les entreprises de logiciels, où les rédacteurs sont bien accompagnés par les équipes de développeurs, que ce genre de workflow est mis en place.</p>
+
+<p><a href="http://blogs.getty.edu/iris/an-editors-view-of-digital-publishing/">Certains éditeurs ont franchi le pas</a> avec succès, car l’expérience d’écriture avec Markdown, l’apport du versionnement pour les relectures et les corrections de manuscrits alliés à la possibilité de générer facilement différents formats de fichiers pour les livres électroniques en font un <a href="/2016/08/28/traitement-de-texte-multicanal/#un-processus-de-publication-moderne">workflow de travail</a> idéal pour l’édition et la publication.</p>
+
+<p>Ces processus de travail, les développeurs les connaissent de mieux en mieux, d’abord avec l’avènement de <a href="https://git-scm.com/book/fr/v2">Git</a>, crée il y a maintenant dix ans et la popularité grandissante de plates-formes de développement collaboratif comme GitHub, GitLab ou Bitbucket basées sur le versionnement de fichiers.</p>
+
+<p>Parallèlement à ces évolutions, nous avons pu assisté également à la mise à disposition d’APIs, toujours plus nombreuses et plus riches. Elles facilitent la réutilisation de données, en les rendant accessibles via des requêtes HTTP. Il est aujourd’hui trivial de récupérer du JSON avec ES2015 comme nous l’avons vu le lendemain en atelier. Promis.</p>
+
+<p>Afin d’illustrer tout cela, comme nous étions à Paris Web, j’ai choisi de présenter une preuve de concept ingénieuse, développée par <a href="http://www.pixelastic.com/">Tim Carry</a>, évangéliste chez Algolia, qui propose une API de recherche très performante pour vos documents. Tim a ensuite utilisé <a href="http://brunch.io/">Brunch</a> pour générer ce qu’on appelle dans notre jargon une <em>single page app</em>, une page dont le côté dynamique est entièrement assuré par JavaScript dans le navigateur. C’est plutôt cool le développement web en 2016.</p>
+
+<p>Tim a décidé de faire un cadeau à Paris Web en proposant un moteur de recherche qui permet d’accéder à touts les supports de conférences des éditions passées. Tim a donc commencé par récupérer les données des 11 éditions de Paris Web au format JSON pour pouvoir ensuite les indexer à l’aide d’Algolia. Ajoutez une pincée de JavaScript et quelques gouttes de CSS, et vous obtenez une application web tout ce qu’il y a de plus dynamique et très performante. <a href="https://pixelastic.github.io/parisweb/">Jugez-en par vous-même</a>. C’est instantané ou presque, de l’ordre de la milliseconde.</p>
+
+<p>Pas de backend, des données versionnées et stockées dans un format standard, une API de qualité, un générateur pour assembler le tout, on pousse tout ça gratuitement sur Github Pages et hop le tour est joué.</p>
+
+<p>Afin de mieux décrire ce genre de procédé, Matthias Billman le fondateur de Netlify, une plateforme d’hébergement et de déploiement automatisé de sites <em>statiques</em> a proposé le terme de <a href="http://jamstack.org/fr/">JAMStack</a> lors d’une <em>Smashing Conf</em> à San Francisco. JAM pour <strong>JavaScript, APIs and Markup</strong>. Cet acronyme liste une partie des ingrédients de la recette qui permettent de générer des sites performants et sécurisés. Peu importe le nom qu’on lui donne, l’important c’est le résultat, ça booste. Alors est-ce si compliqué que cela ?</p>
+
+<p>Si l’on regarde la définition du mot <strong>simple</strong> dans le Larousse, on peut y lire :</p>
+
+<blockquote>
+  <p>Simple : qui est constitué d’un <strong>petit nombre d’éléments qui s’organisent de manière claire</strong>, par opposition à complexe.</p>
+</blockquote>
+
+<p>Cela décrit assez bien le processus de conception des applications web d’aujourd’hui. Chaque élément de la chaîne a une responsabilité et un périmètre bien défini et chacun fait ce qu’il a à faire. Nous sommes en opposition avec une application monolithique complexe, qui cumule toutes les responsabilités.</p>
+
+<p>Vous avez donc compris que ces sites ne sont donc pas forcément si <em>statiques</em> que ça. Forcément, le web a beaucoup évolué depuis les premières page HTML que nous mettions en ligne avec un logiciel FTP, les navigateurs sont devenus très performants, <a href="https://www.paris-web.fr/2016/conferences/nodejs-partout.php">JavaScript est désormais partout</a>, comme se tue à le répéter Christophe Porteneuve depuis plusieurs années déjà. Le versionnement des projets facilite grandement la collaboration et l’automatisation les processus de déploiement. Nous avons pu le constater lors de <a href="https://www.paris-web.fr/2016/conferences/le-deploiement-manuel-non-merci-jessaie-darreter.php">la présentation de David Sferuzza</a>.</p>
+
+<p>Même si on ne développe pas de <em>Single Page App</em> comme Tim, l’adoption d’un workflow similaire pour la génération de sites de contenus est une aubaine pour les développeurs et designers web. Ils ont la possibilité de se concentrer uniquement sur leur domaine de prédilection. C’est également un très bon terrain de jeu et d’expérimentation pour s’amuser à utiliser des APIs, récupérer des fichiers JSON, moduler des données comme bon nous semble à l’aide du sucre syntaxique qu’offre YAML et utiliser le langage de <em>templating</em> de son choix pour façonner son code à la manière d’un artisan.</p>
+
+<p>Avoir le choix dans les outils, surtout quand ils sont aussi nombreux, c’est toujours un dilemme, mais en ce qui concerne les générateurs, le choix sera de toute façon influencé par votre expérience passée, l’écosystème que vous maîtrisez le mieux.</p>
+
+<p>Ne vous inquiétez on trouve des générateurs dans tous les langages : en Ruby, en JS, en Go, en Python et même en PHP - <a href="https://twitter.com/briceatwork/status/781770722846703616">désolé Brice</a>. Vous avez aussi pas mal de choix au niveau du système de <em>templating</em>, le mieux est encore d’aller trouver votre bonheur sur <a href="https://www.staticgen.com/">StaticGen</a>.</p>
+
+<p>Vous pouvez commencer par identifier un <em>content-driven</em> projet comme un blog ou un site produit ou institutionnel. Vous pouvez aussi décider d’utiliser des générateurs dès la phase de prototypage comme le fait <a href="http://bertrandkeller.info/">Bertrand</a>. Il est important de ne laisser personne à la traine, de prendre le temps de former les designer web à comprendre la logique puis à utiliser des interfaces graphiques pour Git comme <a href="https://www.gitkraken.com/">GitKraken</a> — qui a eu la très bonne idée d’ajouter un bouton <em>annuler</em>. Un petit CTRL-Z et c’est reparti. Quand on a le droit à l’erreur, ça fait toujours moins peur.</p>
+
+<p>Ce qui compte avant tout c’est de <strong>retrouver du plaisir et de la sérénité</strong>. Dans son livre <em><a href="https://www.amazon.fr/v%C3%A9rit%C3%A9-sur-qui-nous-motive/dp/208137952X/">La vérité sur ce qui nous motive</a></em>, Daniel Pink décrypte les trois éléments clés de la motivation : <strong>l’autonomie</strong>, <strong>l’envie de progresser</strong> dans son domaine pour devenir bon, de maîtriser son art et enfin la finalité et <strong>le sens de notre action</strong>.</p>
+
+<p>Ce workflow <strong>simple</strong>, n’est pas synonyme de <em>facile</em> et rassemble ces trois composantes. C’est surement pour cela qu’il est devenu celui de nombreux projets open-source, notamment de documentation ou de présentation de produit. Si le logiciel open-source montre toujours la voie, il ne faut pas très longtemps pour que les équipes les plus chevronnées emboitent le pas.</p>
+
+<p>Les services innovation de l’État français utilisent par exemple ces outils sur des projets comme <a href="https://beta.gouv.fr/">https://beta.gouv.fr/</a>.</p>
+
+<p>De plus en plus d’agences privilégient aussi ces process pour leurs clients, notamment pour des sites soumis à de forts trafics.</p>
+
+<p>C’est par exemple le cas pour le site de campagne d’<a href="https://www.hillaryclinton.com/">Hillary Clinton</a>, le site de l’ICIJ à l’origine des <a href="https://panamapapers.icij.org/">Panama Papers</a>. En France, mis à part des blogs, je ne sais pas si beaucoup d’agences l’utilisent pour des projets aussi importants.</p>
+
+<p>Quand Christophe Porteneuve m’a dit qu’il lançait <a href="http://beta.delicious-insights.com/">le nouveau site de sa société</a>, je n’ai pas été étonné qu’il ait utilisé <a href="https://middlemanapp.com/">Middleman</a>, un générateur de site statique en Ruby. Même chose pour <a href="http://www.cedexis.com/">Cedexis</a>, dont la performance est le cœur de métier et qui utilise aussi Middleman pour son site.</p>
+
+<p>Certains générateurs comme Gatsby ou Phenomic utilisent nodeJS et React pour embarquer des composants dynamiques dans les pages, c’est une manière hybride de concilier les contenus statiques et le développment d’application web.</p>
+
+<p>Il semblerait donc que ce soit pour le moment cantonné à quelques experts - j’adorerai qu’on me prouve le contraire - mais je ne doute pas que la France rattrape ses fameux cinq ans de retard très bientôt.</p>
+
+<p>Les <a href="/presentations/ne-passons-pas-a-cote-des-choses-simples/">exemples dans les slides de la conférence</a> mentionnent des sites très bien conçus comme celui de l’agence <a href="http://www.instrument.com/">Instrument</a>, qui a notamment été commissionnée pour la conception <a href="https://design.google.com/">https://design.google.com/</a>. Il me semble que c’est Nanoc qui a été utilisé sur ce projet.</p>
+
+<p>Brad Frost est développeur front et utilise lui aussi <a href="http://jekyllrb.com/">Jekyll</a> pour générer la documentation de son projet <a href="http://patternlab.io/">PatternLab</a>. Les intégrateurs, UX designers et autres développeurs front devraient donc s’intéresser selon moi de plus près à ces outils. Non seulement, car ils savent suffisamment s’éffacer pour vous laisser travailler la matière première des technos web, mais parce qu’ils sont aujourd’hui la meilleure réponse à un web plus performant. Pourquoi veut-on aller si vite ? Ça c’est une autre question.</p>
+
+<p>Enfin voilà, <a href="http://bertrandkeller.info/2016/10/04/ne-passons-pas-cote-choses-simples">le message que nous souhaitions faire passer avec Bertrand</a>, c’est que même si l’écosystème n’est peut-être pas encore aussi riche que celui des CMS dont la conception correspond à l’état du web de la fin des années 90, il y a surement des projets sur lesquels vous allez avant tout vouloir vous concentrer sur la stratégie éditoriale, l’expérience utilisateur et la performance. Cette <em>stack</em>, ce <em>workflow</em> c’est la garantie de plus d’autonomie, de maîtrise et de sérénité de gagné. Je fais le pari que dans quelques années, ces solutions seront plus matures et plus répandues, ce n’est jamais gagné un pari vers le retour à la simplicité, mais a-t-on vraiment encore le choix ?</p>
+
+<p>Si vous ne devez retenir qu’une chose de tout ça, c’est qu’en adoptant une démarche centrée utilisateur, vous pouvez vous faire plaisir, être créatif et faire de beaux projets. Sachez être pertinent le cas échéant : <em>Keep It Static Stupid</em>.</p>
+
+<p>Pour les équipes, tout l’enjeu est de collaborer étroitement avec vos clients, vos collègues à l’appropriation collective du process que vous aurez mis en place, cela n’est pas forcément évident selon le contexte, ça demande de casser ces satanés silos, hérité du Fordisme. Vive les équipes multi-disciplinaires auto-organisées, ça marche dans les <a href="https://www.paris-web.fr/2016/conferences/quand-les-militaires-se-prennent-au-jeu-du-design-sprint.php">Design Sprint chez les militaires</a>, il n’y a pas de raison que ça ne marche pas pour votre équipe.</p>
+
+<p>Je vous laisse méditer cette citation du penseur de la technique, <a href="https://fr.wikipedia.org/wiki/Jacques_Ellul">Jacques Ellul</a>  :</p>
+
+<blockquote>
+  <p>La spécialisation doit-elle se payer par une parcellisation absurde où la connaissance se disloque en mille savoirs clos ?</p>
+</blockquote>
+
+<p>Un grand merci à Bertrand Keller pour m’avoir incité à travailler sur cette conférence, la prise de parole en public est un exercice auquel je me prête peu, enfin sur scène, mais l’expérience s’est à priori révélée positive, si j’en crois les quelques retours que j’ai eu. On ne s’improvise pas acteur, ça a du se voir, mais nous avons essayé de proposer un format aussi vivant que possible.</p>
+
+<p>Le fait qu’il y ait eu d’autres conférences sur l’importance de l’accès aux données, sur les nouvelles APIs qui permettent de mieux gérer le cache navigateur, le déploiement continu, des ateliers JS et Git, fait que notre sujet s’insérait vraiment bien au milieu du programme.</p>
+
+<p>Je ne suis pas architecte logiciel, je ne prétend pas tout savoir sur ces sujets, simplement j’observe, j’expérimente et je tâche de comprendre comment améliorer nos façons de travailler.</p>
+
+<p>J’aurais adoré pouvoir échanger avec des gens comme <a href="https://twitter.com/bastnic">Bastien Jaillot</a> sur ce type de sujet avant de préparer cette intervention, j’espère que nous en aurons l’occasion. En tout cas si vous êtes architecte logiciel et que vous souhaite partager votre vision, lâchez-vous. Pour le moment, j’ai l’impression qu’on se dirige vers un meilleur découplage des responsabilités, mais sans pour autant non plus tout passer en microservices ou en architecture <a href="http://martinfowler.com/bliki/Serverless.html">serverless</a>.</p>
+
+<p>Ce qui bien avec le Web, c’est qu’on ne sait jamais trop comment ça va évoluer, c’est en perpétuel mouvement et le mouvement c’est la vie.</p>
+
+<p>Un immense bravo à toute l’équipe de Paris-Web qui accomplit un travail phénoménal chaque année, C’était un sans-faute pour moi niveau organisation, comme d’habitude.</p>
+
+<p>Je profite de l’occasion pour vous donner rendez-vous à <a href="https://sudweb.fr/">Sud Web</a> <img class="emoji" title=":sunny:" alt=":sunny:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2600.png" height="20" width="20" align="absmiddle"> en mai prochain, dont le site est bien entendu propulsé en <em>statique</em> <img class="emoji" title=":rocket:" alt=":rocket:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f680.png" height="20" width="20" align="absmiddle"></p>
+
+<hr>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>L’équipe de développeurs de Mailchimp a partagé son <a href="http://devs.mailchimp.com/blog/how-we-built-the-mailchimp-content-style-guide/">retour d’expérience</a>. <a href="#fnref:1" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:2">
+      <p>Certains services comme <a href="https://www.siteleaf.com/">Siteleaf</a> ou <a href="http://cloudcannon.com/">CloudCannon</a> ne supportent que <a href="http://jekyllrb.com/">Jekyll</a>, <a href="https://forestry.io/">Forestry.io</a> supporte aussi <a href="https://www.gohugo.io/">Hugo</a>, d’autres comme <a href="https://www.datocms.com/">DatoCMS</a> sont plus agnostiques. <a href="#fnref:2" class="reversefootnote">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+
+  <hr>
+
+  <footer>
+    
+      
+<div id="disqus_thread"></div>
+<script>
+  var disqus_config = function() {
+    this.page.url = 'http://frank.taillandier.me/2016/10/02/ne-passons-pas-a-cote-des-choses-simples/';
+    this.page.identifier = 'http://frank.taillandier.me/2016/10/02/ne-passons-pas-a-cote-des-choses-simples/';
+    this.page.title = 'Ne passons pas à côté des choses simples';
+  };
+
+  // DON'T EDIT BELOW THIS LINE
+  (function() {
+    var d = document,
+      s = d.createElement('script');
+    s.src = 'https://franktaillandier.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+
+
+    
+
+    <h2>Améliorez cet article</h2>
+    <p>Une correction à apporter ? <a href="https://github.com/DirtyF/frank.taillandier.me/edit/master/_posts/2016-10-02-ne-passons-pas-a-cote-des-choses-simples.md">Éditez le contenu</a>.</p>
+  </footer>
+
+</div>
+
+<div class="related">
+  <h2>Articles récents</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/08/30/dix-facons-de-rendre-un-produit-excellent/">
+            10 façons de rendre un produit excellent
+            <small>30
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/28/traitement-de-texte-multicanal/">
+            Traitement de texte multicanal
+            <small>28
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/09/argumentaire-commercial-pour-les-progressive-web-apps/">
+            L’argumentaire commercial pour les Progressive Web Apps
+            <small>9
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+<p>
+  Pour être informé des prochains articles, abonnez vous au <a href="/feed.xml">flux RSS</a>.
+</p>
+
+<p class="copy"></p>
+
+    </div>
+  </div>
+
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {};
+        var t = performance.timing || {};
+
+        if (!t) {
+          //fail silently
+          return;
+        }
+        var start = t.navigationStart,
+          end = t.loadEventEnd
+        loadTime = (end - start) / 1000;
+
+        var copy = document.getElementsByClassName('copy');
+        copy[0].innerHTML += "<span class='loaded'>Page chargée en <strong>" + loadTime + " secondes</strong>.</span>";
+      }, 0);
+    };
+
+    (function(document) {
+      var toggle = document.querySelector('.sidebar-toggle');
+      var sidebar = document.querySelector('#sidebar');
+      var checkbox = document.querySelector('#sidebar-checkbox');
+
+      document.addEventListener('click', function(e) {
+        var target = e.target;
+
+        if (!checkbox.checked ||
+          sidebar.contains(target) ||
+          (target === checkbox || target === toggle)) return;
+
+        checkbox.checked = false;
+      }, false);
+    })(document);
+  </script>
+  <svg class="symbolset" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="icon-mail" viewbox="0 0 1024 1024">
+      <title>Mail</title>
+      <path class="path1" d="M853.31 0h-682.62c-93.88 0-170.69 76.784-170.69 170.658v682.656c0 93.876 76.81 170.686 170.69 170.686h682.622c93.938 0 170.688-76.81 170.688-170.686v-682.656c0-93.874-76.75-170.658-170.69-170.658zM256 256h512c9.138 0 18.004 1.962 26.144 5.662l-282.144 329.168-282.144-329.17c8.14-3.696 17.006-5.66 26.144-5.66zM192 704v-384c0-1.34 0.056-2.672 0.14-4l187.664 218.94-185.598 185.6c-1.444-5.338-2.206-10.886-2.206-16.54zM768 768h-512c-5.654 0-11.202-0.762-16.54-2.206l182.118-182.118 90.422 105.496 90.424-105.494 182.116 182.118c-5.34 1.442-10.886 2.204-16.54 2.204zM832 704c0 5.654-0.762 11.2-2.206 16.54l-185.598-185.598 187.664-218.942c0.084 1.328 0.14 2.66 0.14 4v384z"></path>
+    </symbol>
+    <symbol id="icon-twitter" viewbox="0 0 1024 1024">
+      <title>Twitter</title>
+      <path class="path1" d="M853.342 0h-682.656c-93.874 0-170.686 76.81-170.686 170.69v682.624c0 93.936 76.812 170.686 170.686 170.686h682.656c93.876 0 170.658-76.75 170.658-170.69v-682.62c0-93.88-76.782-170.69-170.658-170.69zM766.478 381.48c0.252 5.632 0.38 11.296 0.38 16.988 0 173.51-132.070 373.588-373.584 373.588-74.15 0-143.168-21.738-201.276-58.996 10.272 1.218 20.724 1.84 31.322 1.84 61.518 0 118.134-20.992 163.072-56.21-57.458-1.054-105.948-39.020-122.658-91.184 8.018 1.532 16.244 2.36 24.704 2.36 11.976 0 23.578-1.61 34.592-4.61-60.064-12.066-105.326-65.132-105.326-128.75 0-0.554 0-1.104 0.012-1.652 17.7 9.834 37.948 15.742 59.47 16.424-35.232-23.546-58.414-63.736-58.414-109.292 0-24.064 6.476-46.62 17.78-66.010 64.76 79.44 161.51 131.712 270.634 137.19-2.238-9.612-3.4-19.632-3.4-29.924 0-72.512 58.792-131.298 131.304-131.298 37.766 0 71.892 15.944 95.842 41.462 29.908-5.886 58.008-16.814 83.38-31.862-9.804 30.662-30.624 56.394-57.732 72.644 26.56-3.174 51.866-10.232 75.412-20.674-17.594 26.328-39.854 49.454-65.514 67.966z"></path>
+    </symbol>
+    <symbol id="icon-feed" viewbox="0 0 1024 1024">
+      <title>RSS Feed</title>
+      <path class="path1" d="M853.34 0h-682.654c-93.876 0-170.686 76.812-170.686 170.688v682.628c0 93.934 76.812 170.684 170.688 170.684h682.652c93.876 0 170.66-76.748 170.66-170.684v-682.628c0-93.876-76.784-170.688-170.66-170.688zM278.944 831.248c-47.97 0-86.944-38.692-86.944-86.628 0-47.684 38.972-86.812 86.944-86.812 48.158 0 87.060 39.128 87.060 86.812-0.002 47.936-38.904 86.628-87.060 86.628zM497.468 831.996c0-81.81-31.808-158.818-89.46-216.444-57.714-57.75-134.376-89.626-215.904-89.626v-125.186c237.652 0 431.126 193.442 431.126 431.254l-125.762 0.002zM719.628 831.996c0-291.062-236.658-527.94-527.376-527.94v-125.248c360.002 0 652.946 293.124 652.946 653.192l-125.57-0.004z"></path>
+    </symbol>
+    <symbol id="icon-github" viewbox="0 0 1024 1024">
+      <title>Github</title>
+      <path class="path1" d="M512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM816.056 816.056c-39.518 39.516-85.512 70.532-136.708 92.186-13.006 5.5-26.214 10.328-39.6 14.492v-76.734c0-40.334-13.834-70-41.5-89 17.334-1.666 33.25-4 47.75-7s29.834-7.334 46-13 30.666-12.416 43.5-20.25 25.166-18 37-30.5 21.75-26.666 29.75-42.5 14.334-34.834 19-57 7-46.584 7-73.25c0-51.666-16.834-95.666-50.5-132 15.334-40 13.666-83.5-5-130.5l-12.5-1.5c-8.666-1-24.25 2.666-46.75 11s-47.75 22-75.75 41c-39.666-11-80.834-16.5-123.5-16.5-43 0-84 5.5-123 16.5-17.666-12-34.416-21.916-50.25-29.75s-28.5-13.166-38-16-18.334-4.584-26.5-5.25-13.416-0.834-15.75-0.5-4 0.666-5 1c-18.666 47.334-20.334 90.834-5 130.5-33.666 36.334-50.5 80.334-50.5 132 0 26.666 2.334 51.084 7 73.25s11 41.166 19 57 17.916 30 29.75 42.5 24.166 22.666 37 30.5 27.334 14.584 43.5 20.25 31.5 10 46 13 30.416 5.334 47.75 7c-27.334 18.666-41 48.334-41 89v78.23c-15.098-4.494-29.98-9.804-44.6-15.988-51.194-21.654-97.188-52.67-136.706-92.186-39.516-39.518-70.534-85.512-92.186-136.708-22.398-52.958-33.756-109.262-33.756-167.348s11.358-114.39 33.758-167.35c21.654-51.194 52.67-97.188 92.186-136.706s85.512-70.534 136.706-92.186c52.96-22.4 109.264-33.758 167.35-33.758s114.39 11.358 167.35 33.758c51.196 21.654 97.19 52.67 136.708 92.186 39.516 39.516 70.532 85.512 92.186 136.706 22.398 52.96 33.756 109.264 33.756 167.35s-11.358 114.39-33.758 167.35c-21.654 51.194-52.67 97.19-92.186 136.706z"></path>
+    </symbol>
+    <symbol id="icon-clock" viewbox="0 0 1024 1024">
+        <title>Clock</title>
+        <path class="path1" d="M658.744 749.256l-210.744-210.746v-282.51h128v229.49l173.256 173.254zM512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM512 896c-212.078 0-384-171.922-384-384s171.922-384 384-384c212.078 0 384 171.922 384 384s-171.922 384-384 384z"></path>
+        </symbol>
+  </defs>
+</svg>
+
+  <script id="dsq-count-scr" src="//franktaillandier.disqus.com/count.js" async></script>
+  <script>if ("serviceWorker" in navigator) {navigator.serviceWorker.register("/sw.js").then(function(registration) {console.log("ServiceWorker registration successful with scope: ",    registration.scope);}).catch(function(err) {console.log("ServiceWorker registration failed: ", err);});}</script>
+</body>
+
+</html><!-- Proudly Powered by GitHub | Generated 2016-10-24 23:18:36 +0200 | Revision c253717fb77c548d4ecec55dfa89b7cfa9ded749 -->

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Begin Jekyll SEO tag v2.0.0 -->
+<title>Applications monolithiques contre microservices - Frank Taillandier</title>
+<meta property="og:title" content="Applications monolithiques contre microservices">
+<meta name="description" content="Comprendre les microservices et les architectures logicielles modernes">
+<meta property="og:description" content="Comprendre les microservices et les architectures logicielles modernes">
+<link rel="canonical" href="http://frank.taillandier.me/2015/02/09/applications-monolithiques-contre-microservices/">
+<meta property="og:url" content="http://frank.taillandier.me/2015/02/09/applications-monolithiques-contre-microservices/">
+<meta property="og:site_name" content="Frank Taillandier">
+<meta property="og:image" content="https://technologyconversations.files.wordpress.com/2014/11/deployment_03_immutable_microservices_05.gif">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2015-02-09T00:00:00+01:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@DirtyF">
+<meta name="twitter:creator" content="@DirtyF">
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Applications monolithiques contre microservices",
+    "image": "https://technologyconversations.files.wordpress.com/2014/11/deployment_03_immutable_microservices_05.gif",
+    "datePublished": "2015-02-09T00:00:00+01:00",
+    "description": "Comprendre les microservices et les architectures logicielles modernes",
+    "logo": "http://frank.taillandier.me/assets/img/frank-taillandier.jpg",
+    "url": "http://frank.taillandier.me/2015/02/09/applications-monolithiques-contre-microservices/"
+  }
+</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- CSS -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="/assets/css/main.css?v=c253717fb77c548d4ecec55dfa89b7cfa9ded749">
+
+  <link type="application/atom+xml" rel="alternate" href="http://frank.taillandier.me/feed.xml" title="Frank Taillandier">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicons/apple-touch-icon-57x57.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/favicons/apple-touch-icon-60x60.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/favicons/apple-touch-icon-72x72.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/favicons/apple-touch-icon-76x76.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/favicons/apple-touch-icon-114x114.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/favicons/apple-touch-icon-120x120.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/favicons/apple-touch-icon-144x144.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/favicons/apple-touch-icon-152x152.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180.png?v=kPPNM6zR4x">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png?v=kPPNM6zR4x" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-194x194.png?v=kPPNM6zR4x" sizes="194x194">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png?v=kPPNM6zR4x" sizes="96x96">
+<link rel="icon" type="image/png" href="/assets/favicons/android-chrome-192x192.png?v=kPPNM6zR4x" sizes="192x192">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-16x16.png?v=kPPNM6zR4x" sizes="16x16">
+<link rel="manifest" href="/assets/favicons/manifest.json?v=kPPNM6zR4x">
+<link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg?v=kPPNM6zR4x" color="#757575">
+<link rel="shortcut icon" href="/assets/favicons/favicon.ico?v=kPPNM6zR4x">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/assets/favicons/mstile-144x144.png?v=kPPNM6zR4x">
+<meta name="msapplication-config" content="/assets/favicons/browserconfig.xml?v=kPPNM6zR4x">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Profiles -->
+  <link type="text/plain" rel="author" href="/humans.txt">
+  <link rel="meta" type="application/rdf+xml" title="FOAF" href="/foaf.rdf">
+
+  <!-- Analytics-->
+  
+    <meta name="google-site-verification" content="KhnXRq1e9zCBkD6X4vs_xwVc-6c-5an2vE7f0_-XMiE">
+  
+
+  <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-15560088-1', 'auto');
+ga('require', 'eventTracker', {
+  attributePrefix: 'data-ga-'
+});
+ga('require', 'outboundLinkTracker');
+ga('require', 'cleanUrlTracker', {
+  stripQuery: true
+});
+ga('require', 'pageVisibilityTracker', {
+  fieldsObj: {
+    nonInteraction: null
+  }
+});
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<script async src="/assets/js/autotrack.js"></script>
+
+</head>
+
+
+<body>
+
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Consultant web</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Accueil</a>
+
+    
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="/a-propos/" data-ga-category="sidebar" data-ga-event="click" data-ga-label="À propos">À propos</a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <ul class="social inline">
+      
+      
+      <li>
+        <a rel="me" title="S'abonner au flux" href="/feed.xml" data-ga-category="sidebar" data-ga-event="click" data-ga-label="feed"><svg width="16" height="20" class="icon icon-feed"><use xlink:href="#icon-feed"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="M'envoyer un mail" href="mailto:frank@taillandier.me" data-ga-category="sidebar" data-ga-event="click" data-ga-label="mail"><svg width="16" height="20" class="icon icon-mail"><use xlink:href="#icon-mail"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="Me suivre sur Twitter" href="https://twitter.com/DirtyF" data-ga-category="sidebar" data-ga-event="click" data-ga-label="twitter"><svg width="16" height="20" class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="Me suivre sur GitHub" href="https://github.com/DirtyF" data-ga-category="sidebar" data-ga-event="click" data-ga-label="github"><svg width="16" height="20" class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
+      </li>
+      
+    </ul>
+
+  </div>
+  <div class="sidebar-item">
+    <p>
+      © 2016
+    </p>
+  </div>
+</div>
+
+
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+  <div class="wrap">
+    <div class="masthead">
+      <div class="container">
+        <h3 class="masthead-title">
+            <a href="/" title="Home">Frank Taillandier</a>
+            <small>Consultant web</small>
+          </h3>
+      </div>
+    </div>
+
+    <div class="container content">
+      <div class="post">
+  <h1 class="post-title">Applications monolithiques contre microservices</h1>
+  <span class="post-date">
+    
+      9
+
+février
+  
+ 2015
+
+    
+  </span>
+  
+<span class="post-read-time" title="Temps de lecture estimé à 16 minutes">·  <svg width="16" height="20" class="icon icon-clock"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use></svg>
+  
+    16 minutes
+  
+</span>
+
+
+  <p><em>Traduction de <a href="http://technologyconversations.com/2015/01/07/monolithic-servers-vs-microservices/">l‘article </a> de Victor Farcic</em></p>
+
+<p>Ces dernières années les microservices sont devenus de plus en plus populaires. Pourquoi ? Devriez-vous les utiliser ? Comment les mettre en place ? Autant de questions auxquelles cet article de <a href="https://twitter.com/vfarcic">Victor Farcic</a> apporte un début de réponse pour vous aider dans vos choix d’architecture logicielle.</p>
+
+<!-- excerpt -->
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Au début les applications étaient petites et simples et ne comportaient que peu d’exigences. Avec le temps, les exigences et les besoins ont grandi et nos applications avec elles pour devenir plus grosses et plus complexes. Cela s’est traduit par des serveurs monolithiques développés et déployés d’une seul traite. Les Microservices sont, en un sens, un retour aux sources avec des applications simples qui remplissent les besoins de complexité d’aujourd’hui en fonctionnant ensemble à travers l’utilisation des APIs de chacune des autres.</p>
+
+<h2 id="cest-quoi-un-serveur-monolithique-">C’est quoi un serveur monolithique ?</h2>
+
+<p>La meilleure façon d’expliquer ce que sont les microservices; c’est encore de les comparer avec l’inverse : les serveurs monolithiques. Ils sont développés et déployés de manière unitaire. Dans le cas de Java, le résultat est souvent un fichier WAR ou JAR. C’est aussi vrai pour C++, .Net, Scala et beaucoup d’autres langages de programmation.</p>
+
+<p>Une grande partie de l’histoire du développement logiciel est marqué pour l’augmentation continue de la taille des applications que nous développons. Au fur et à mesure que nous ajoutons de plus en plus de choses dans nos applications nous augmentons leur complexité et leur taille et cela ralentit le développement, et la vitesse à laquelle nous pouvons tester et déployer.</p>
+
+<p>Avec le temps nous avons commencé à diviser nos applications en couches : la couche de présentation, la couche métier, la couche d’accès aux données, etc. Cette séparation est plus logique que physique. Même si le développement est devenu un peu plus simple, nous avons toujours besoin de tout tester et de tout déployer à chaque changement ou à chaque version. Il n’est pas rare dans certains environnements professionnels d’avoir des applications qui prennent des heures à compiler et à déployer. Tester, en particulier les régressions, peut virer au cauchemar et prendre et certains cas des mois. Avec le temps, notre capacité à faire des changements qui n’affectent qu’un seul module est réduite. Le principal objectif des couches est de faire en sorte qu’elles puissent être aisément remplacées ou mises à jour. Cette promesse n’a jamais vraiment été tenue. Remplacer quelque chose dans de grosses applications monolithiques c’est jamais vraiment facile et sans risques.</p>
+
+<p>Dimensionner de tels serveurs signifie dimensionner l’application entière et obtenir une utilisation très inégale des ressources. Si nous avons besoin de plus de ressources, nous sommes forcés de tout dupliquer sur un nouveau serveur, même si le goulot d’étranglement ne concerne qu’un seul module.</p>
+
+<h2 id="que-sont-les-microservices-">Que sont les microservices ?</h2>
+
+<figure>
+  <img src="https://technologyconversations.files.wordpress.com/2014/11/deployment_03_immutable_microservices_05.gif" alt="">
+  <figcaption><small>Exemple d'architecture avec des microservices</small></figcaption>
+</figure>
+
+<p>Les microservices sont une approche d’architecture et de développement d’une seule application composées de petits services. Ce qu’il faut bien comprendre dans les microservices, c’est leur indépendance. Chacun est développé, testé et déployé séparément des autres. Chaque service tourne dans un processus séparé. La seule relation entre les différents microservices est l’échange de données effectué à travers les différentes APIs qu’ils exposent. Ils reprennent, en un sens, l’idée de petits programmes et de tuyaux utilisés dans Unix/Linux. La majorité des programmes Linux sont petits et génèrent une sortie. Cette sortie peut-être utilisée comme entrée par d’autres programmes. Lorsqu’on les enchaîne, ces programmes peuvent réaliser des opérations très complexes. C’est une complexité né de la combinaison de quelques petites unités simples.</p>
+
+<p>Les aspects clef des microservices sont :</p>
+
+<ul>
+  <li>Ils ne font qu’une seule chose et sont responsables d’une fonctionnalité,</li>
+  <li>chaque microservices peut être conçu à l’aide de n’importe quel outil ou langage puis que chaque microservice est indépendant des autres,</li>
+  <li>Ils sont vraiment faiblement couplés puisque chaque microservice est physiquement séparé des autres,</li>
+  <li>Indépendance relative entre les différentes équipes qui développement les différents microservices (en partant du principe que les APIs qu’ils exposent sont définis à l’avance).</li>
+  <li>Facilité des tests et du <a href="http://technologyconversations.com/2014/11/27/continuous-deployment-introduction/">déploiement ou de la livraison continue</a>.</li>
+</ul>
+
+<p>Un des problèmes avec les microservices est de décider quand les  utiliser. Au début, lorsque l’application est encore petite, les problèmes que tentent de résoudre les microservices n’existent pas encore. Toutefois, une fois que l’application a grossi et qu’on peut préconiser des microservices, le coût de migration vers une architecture différente peut s’avérer trop important. Les équipes expérimentées peuvent décider d’utiliser des microservices dès le départ en sachant que <a href="/2014/11/06/intro-dette-technique/">la dette technique</a> qu’ils auraient à payer plus tard serait plus coûteuse que de commencer à travailler dès le début avec des microservices.</p>
+
+<p>Souvent, comme c’est le cas pour Netflix, eBay et Amazon, les applications monolithiques commencent à évoluer vers des microservices de façon graduelle. De nouveaux modules sont développés en tant que microservices et intégrés au reste du système. Une fois leur valeur prouvée, des parties de l’application monolithique existante sont refactorisées en microservices.</p>
+
+<p>Une des chose que critique les plus les développeurs d’applications professionnelles est la décentralisation du stockage de données.
+Alors que les microservices peuvent fonctionner (avec quelques ajustements) en stockant les données de manière centralisée, la possibilité de décentraliser également cette partie devrait, à minima, être étudiée.</p>
+
+<p>Le choix de stocker séparément (de façon décentralisée) les données relatives à un service et d’emballer tout ça dans le même conteneur pourra souvent se révéler être une meilleure option que de stocker les données dans une base de données centralisée. Nous ne proposons pas d’utiliser systématiquement le stockage décentralisé mais de prendre cette option en considérant pendant la conception de microservices.</p>
+
+<h2 id="inconvnients">Inconvénients</h2>
+
+<h3 id="accroissement-de-la-complexit-oprationnelle-et-du-dploiement">Accroissement de la complexité opérationnelle et du déploiement</h3>
+
+<p>Un des principaux arguments contre les microservices est qu’il accroit la complexité opérationnelle et celle du déploiement. Cet argument est vrai mais grâce à à des outils relativement nouveaux, il peut être nuancé. Les outils de gestion de configuration (CM) peuvent gérer des configurations d’environnement et de déploiement relativement facilement. L’utilisation de conteneurs avec <a href="//docker.com">Docker</a> réduit grandement les difficultés de déploiement que peuvent causer les microservices.
+Les outils de <abbr>GC</abbr> et Docker nous permettent de déployer et de dimensionner facilement. Un exemple est présent dans l’article <a href="http://technologyconversations.com/2014/12/29/continuous-deployment-implementation-with-ansible-and-docker/">Continuous Deployment: Implementation with Ansible and Docker</a>.</p>
+
+<p>À mon avis, l’argument de l’accroissement constant de la complexité du déploiement ne prend généralement pas en compte les avancées que nous avons pu voir depuis quelques années dans le domaine et est donc grandement exagéré. Cela ne veut pas dire qu’une partie du travail n’a pas été transférée du développement vers DevOps. C’est définitivement le cas. Néanmoins, les bénéfices sont dans de nombreux cas bien plus importants que les inconvénients que produisent ce changement.</p>
+
+<h3 id="les-appels-de-processus-distants">Les appels de processus distants</h3>
+
+<p>Un autre contre-argument est la baisse de la performance causée par les appels de processus distants. Les appels internes des classes et des méthodes sont plus rapides et ce problème ne peut être omis. La manière dont la perte de performance va impacter un système est à analyser au cas par cas. Un facteur important est la façon dont nous allons segmenter notre système. Si nous adoptons une approche extrême avec de tous petits microservices (certains proposent qu’ils fassent entre 10 et 100 lignes de code) cet impact pourrait être considérable. J’aime créer des microservices organisés autour des fonctionnalités comme les utilisateurs, le panier d’achat, les produits, etc.
+Cela réduit le nombre d’appel à des processus distants. Il est également important de noter que si les appels d’un microservices à un autre se sont à travers un LAN interne rapide, l’impact négatif est relativement faible.</p>
+
+<h2 id="avantages">Avantages</h2>
+
+<p>Les avantages qui suivent ne représentent qu’une partie de ce que les microservices peuvent apporter. Cela ne veut pas dire que le même avantage n’existe pas dans d’autres types d’architecture mais avec les microservices ils peuvent être un poil plus visibles qu’avec d’autres options.</p>
+
+<h3 id="dimensionnement">Dimensionnement</h3>
+
+<p>Dimensionner les microservices est plus facile qu’avec des applications monolithiques. Alors que dans le deuxième cas nous dupliquons toute l’application sur une nouvelle machine, avec les microservices nous ne dupliquons que ce qui a besoin d’être redimensionné. Non seulement nous ne pouvons dimensionner que ce qui a besoin de l’être mais nous pouvons mieux distribuer les choses. Nous pouvons par exemple, mettre un service qui fait une utilisation intensive du CPU avec un autre qui consomme beaucoup  de RAM pendant que nous déplaçons un deuxième service gourmand en CPU sur un matériel différent.</p>
+
+<h3 id="innovation">Innovation</h3>
+
+<p>Les serveurs monolithiques, une fois l’architecture initiale mise en place, ne laisse pas trop de place à l’innovation. De par leur nature, changer les choses prend du temps et l’expérimentation est très risquée puisque cela peut potentiellement affecter l’ensemble. On ne peut pas par exemple changer Apache Tomcat pour NodeJS simplement parce que ce serait plus adapté pour un module en particulier.</p>
+
+<p>Je ne suggère pas que nous devrions changer de langage de programmation, de serveur, de persistance, etc. pour chaque module. Mais, les serveurs monolithiques tendent à l’opposé et les changements sont risqués voire malvenus. Avec les microservices, nous pouvons choisir séparément ce que nous pensons être la meilleure solution pour chaque service. Un pourrait utiliser Apache Tomcat alors que l’autre utiliserait NodeJS. Un pourrait être écrit en Java et l’autre en Scala. Je ne suis pas en train de défendre le fait que chaque service devrait être différent du reste des autres mais chacun peut être conçu de la manière dont nous pensons qu’elle répond le mieux à l’objectif fixé.</p>
+
+<p>De plus, les modifications et les expériences sont plus faciles à faire. Après tout, quoi que l’on fasse, cela n’affecte qu’un des nombreux microservices et pas le système dans son ensemble du moment que l’API est respectée.</p>
+
+<h3 id="la-taille">La taille</h3>
+
+<p>Puisque les microservices sont petits, ils sont plus faciles à comprendre. Il y a beaucoup moins de code à parcourir pour comprendre ce qu’un micro service fait. Cela simplifie grandement en soi le développement, particulièrement lorsqu’un nouveau rejoint le projet. En plus de cela, tout le reste a tendance à être plus rapide. Les IDE fonctionnent plus vite avec un petit projet, comparé à ceux utilisés pour les applications monolithiques. Ils démarrent plus vite, puisque il n’y a pas d’énormes serveurs ou un grand nombre de bibliothèques à charger.</p>
+
+<h3 id="dploiement-marche-arrire-et-isolation-dune-erreur">Déploiement, marche arrière et isolation d’une erreur</h3>
+
+<p>Le déploiement est plus rapide et plus simple. Déployer quelque chose de simple est plus rapide (voire plus facile) que déployer quelque chose de gros. Dans le cas où nous réalisons qu’il y a un problème, ce problème a potentiellement un impact limité et peut être annulé bien plus facilement.
+Avant que nous ne fassions marche arrière, l’erreur est isolée dans une petite partie du système. La livraison ou déploiement continu peut être fait à une vitesse et une fréquence qui ne serait pas possible avec de gros serveurs.</p>
+
+<h3 id="pas-besoin-dengagement-sur-le-long-terme">Pas besoin d’engagement sur le long terme</h3>
+
+<p>Un des problèmes fréquents avec les applications monolithiques est l’engagement. Nous sommes souvent obligés de choisir dès le  début l’architecture et les technologies qui devront durer un long moment. Après tout, nous construisons quelque chose de gros qui devra durer longtemps. Avec les microservices, cet besoin d’un engagement sur le long terme n’est pas si important. Changez de langage de programmation dans un microservice et s’il s’avère que c’est un bon choix, appliquez le à d’êtres. Si l’expérience échoue ou n’est pas optimale, il n’y a qu’une toute petite partie du système qui a besoin d’être refaite. C’est aussi valable pour les frameworks, les bibliothèques, les serveurs, etc. Nous pouvons même utiliser différentes base de données. Si une pincée de NoSQL semble être le meilleur choix pour un microservice en particulier, pourquoi ne pas l’utiliser et l’intégrer à l’intérieur du conteneur ?</p>
+
+<h2 id="bonnes-pratiques">Bonnes pratiques</h2>
+
+<p>La plupart des bonnes pratiques suivantes peuvent être généralement appliquées aux architectures orientées service. Maintenant, avec les microservices, elles deviennent encore plus importantes et bénéfiques.</p>
+
+<h3 id="conteneurs">Conteneurs</h3>
+
+<p>Gérer beaucoup de microservices peut facilement devenir une tâche très complexe. Chacun peut être écrit dans un langage de programmation différent, peut demander un type différent de serveur (léger si possible) ou peut avoir recours à différents jeux de bibliothèques. Si chacun de ces services est livré sous forme de conteneur, alors la plupart de ces problèmes disparaîtront. Tout ce que nous avons à faire est de lancer le conteneur avec par exemple Docker et espérer que tout ce dont nous avons besoin est dedans.</p>
+
+<h3 id="microservices-proxy-ou-passerelle-dapi">Microservices proxy ou Passerelle d’API</h3>
+
+<p>Les interfaces client de grandes entreprises peuvent avoir besoin d’appeler des dizaines voire des centaines de requêtes HTTP (comme c’est le cas pour <a href="http://www.amazon.com/">Amazon.com</a>). Souvent les requêtes mettent plus de temps à être appelées qu’à recevoir la réponse.
+Les microservices proxy peuvent aider dans ce genre de cas.
+Leur objectif est d’appeler différents microservices et de retourner un service agrégé. Ils ne devraient contenir aucune logique mais simplement regrouper ensemble plusieurs réponses et répondre avec des données agrégées à l’utilisateur.</p>
+
+<h3 id="reverse-proxy">Reverse proxy</h3>
+
+<p>N’exposez jamais directement l’API d’un microservice. S’il n’y a pas un quelconque type d’orchestration, la dépendance entre l’utilisateur et le microservice peut devenir si importante qu’elle peut nous priver de la liberté que les microservices sont censés nous donner. Des serveurs légers comme Apache Tomcat ou <a href="http://nginx.org/">nginx</a> sont très bons dans l’exécution de tâches de reverse proxy et peuvent aisément être utilisés avec peu d’effort supplémentaire. Merci de consulter l’article Continuous Deployment: Implementation pour voir une implémentation possible d’utiliser un reverse proxy avec Docker and quelques autres outils.</p>
+
+<h3 id="approche-minimaliste">Approche minimaliste</h3>
+
+<p>Les microservices ne devraient contenir que des paquets, des bibliothèques et des frameworks dont ils ont vraiment besoin. Plus ils sont petits, mieux c’est. C’est tout l’inverse de l’approche adoptée par les applications monolithiques. Alors qu’auparavant nous aurions eu recours à des serveurs JEE comme JBoss qui regroupent tous les outils sont nous aurions pu avoir besoin ou pas, les microservices fonctionnent mieux avec des solutions beaucoup plus minimalistes. Avoir des centaines de microservices qui embarquent tous un serveur JBoss est totalement disproportionné. Apache Tomcat, par exemple, est une bien meilleure option. J’ai tendance à choisir des solutions encore plus petites comme par exemple <a href="http://spray.io/">Spray</a>, un serveur pour API Restful très léger. Ne prenez que ce dont vous avez besoin.</p>
+
+<p>La même approche devrait aussi être utilisée au niveau du système d’exploitation. Si nous devons déployer des microservices sous forme de conteneurs Docker, <a href="https://coreos.com/">CoreOS</a> pourra être une meilleure solution que par exemple Red Hat ou Ubuntu.
+Déjà débarrassé des choses dont nous n’avons pas besoin, il nous permet de mieux exploiter les ressources.</p>
+
+<h3 id="la-gestion-de-la-configuration-est-un-must">La gestion de la configuration est un must</h3>
+
+<p>Plus le nombre de microservices augmente, plus nous avons besoin de gestion de configuration (&lt;abbr title=Configuration Management&gt;CM&lt;/a&gt;). Déployer plusieurs microservices sans des outils comme <a href="http://puppetlabs.com/">Puppet</a>, <a href="https://www.chef.io/">Chef</a> ou <a href="http://www.ansible.com/">Ansible</a> (pour n’en citer que quelques uns) vire très vite au cauchemar. En fait, mis à part pour des solutions extrêmement simples, ne pas utiliser d’outils de gestion de configuration est une perte de temps, qu’il y ait des microservices ou non.</p>
+
+<h3 id="des-quipes-transversales-fonctionnelles">Des équipes transversales fonctionnelles</h3>
+
+<p>Bien qu’il n’y ait pas de règles qui dictent la manière dont les équipes doivent être structurées, les microservices sont mieux conçus lorsque l’équipe qui travaille sur un est pluri-disciplinaires. Une seule équipe devrait en être responsable du début (conception) à la fin (déploiement et maintenance). Les microservices sont trop petits pour être gérer d’une équipe à l’autre (équipes d’architecture/conception, de développement, de tests, de déploiement et de maintenance). Il est préférable d’avoir une seule équipe entièrement responsable du cycle de vie d’un microservice. Dans certains cas une équipe pourra être responsable de plusieurs microservices, mais la responsabilité d’un microservice ne devrait pas être répartie entre plusieurs équipes.</p>
+
+<h3 id="versionnement-dapi">Versionnement d’API</h3>
+
+<p>Toute API devrait être <em>versionnée</em> et c’est aussi vrai pour les microservices. Si certaines changements cassent le format de l’API, cette modification devrait être livrée dans une version à part. Dans le cas des APIs publiques ou des microservices, nous ne savons pas avec certitude qui les utilise et donc devons assurer une retro-compatibilité ou à défaut donner le temps aux utilisateurs de pouvoir s’adapter. Il y a une partie sur la gestion des versions d’API publier dans l’article <a href="http://technologyconversations.com/2014/08/12/rest-api-with-json/">API REST avec JSON</a>.</p>
+
+<h2 id="en-rsum">En résumé</h2>
+
+<p>Les microservices ne sont pas la réponse à tous nos problèmes. Rien ne l’est. Ils ne sont pas la façon dont toutes les applications devraient être créées. Il n’y a aucune solution qui adresse tous les cas de figures.</p>
+
+<p>Les microservices existent depuis longtemps et ont connu un regain de popularité depuis quelques années. Il y a plusieurs facteurs responsables de cette tendance, le dimensionnement étant probablement le plus important d’entre eux.</p>
+
+<p>L’émergence de nouveaux outils et en particulier de Docker nous permettent de voir les microservices sous un nouveau jour et suppriment une partie des problèmes que leur développement et leur déploiement avaient crées.</p>
+
+<p>L’utilisation des microservices par les « grands » comme Amazon, Netflix, eBay et d’autres, donne assez de confiance pour que ce style d’architecture soit prêt à être évalué (si ce n’est utilisé) par les développeurs d’applications professionnelles.</p>
+
+<p>Pour plus d’informations sur les microservices, vous pouvez lire : <a href="http://technologyconversations.com/2015/01/26/microservices-development-with-scala-spray-mongodb-docker-and-ansible/">Microservices Development with Scala, Spray, MongoDB, Docker and Ansible</a></p>
+
+<p>Crédit photo: <a href="https://www.flickr.com/photos/zamito44/5252421562/">zamito44</a> via <a href="http://photopin.com/">photopin CC</a></p>
+
+
+  <hr>
+
+  <footer>
+    
+      
+<div id="disqus_thread"></div>
+<script>
+  var disqus_config = function() {
+    this.page.url = 'http://frank.taillandier.me/2015/02/09/applications-monolithiques-contre-microservices/';
+    this.page.identifier = 'http://frank.taillandier.me/2015/02/09/applications-monolithiques-contre-microservices/';
+    this.page.title = 'Applications monolithiques contre microservices';
+  };
+
+  // DON'T EDIT BELOW THIS LINE
+  (function() {
+    var d = document,
+      s = d.createElement('script');
+    s.src = 'https://franktaillandier.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+
+
+    
+
+    <h2>Améliorez cet article</h2>
+    <p>Une correction à apporter ? <a href="https://github.com/DirtyF/frank.taillandier.me/edit/master/_posts/2015-02-09-applications-monolithiques-contre-microservices.md">Éditez le contenu</a>.</p>
+  </footer>
+
+</div>
+
+<div class="related">
+  <h2>Articles récents</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/10/02/ne-passons-pas-a-cote-des-choses-simples/">
+            Ne passons pas à côté des choses simples
+            <small>2
+
+octobre
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/30/dix-facons-de-rendre-un-produit-excellent/">
+            10 façons de rendre un produit excellent
+            <small>30
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/28/traitement-de-texte-multicanal/">
+            Traitement de texte multicanal
+            <small>28
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+<p>
+  Pour être informé des prochains articles, abonnez vous au <a href="/feed.xml">flux RSS</a>.
+</p>
+
+<p class="copy"></p>
+
+    </div>
+  </div>
+
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {};
+        var t = performance.timing || {};
+
+        if (!t) {
+          //fail silently
+          return;
+        }
+        var start = t.navigationStart,
+          end = t.loadEventEnd
+        loadTime = (end - start) / 1000;
+
+        var copy = document.getElementsByClassName('copy');
+        copy[0].innerHTML += "<span class='loaded'>Page chargée en <strong>" + loadTime + " secondes</strong>.</span>";
+      }, 0);
+    };
+
+    (function(document) {
+      var toggle = document.querySelector('.sidebar-toggle');
+      var sidebar = document.querySelector('#sidebar');
+      var checkbox = document.querySelector('#sidebar-checkbox');
+
+      document.addEventListener('click', function(e) {
+        var target = e.target;
+
+        if (!checkbox.checked ||
+          sidebar.contains(target) ||
+          (target === checkbox || target === toggle)) return;
+
+        checkbox.checked = false;
+      }, false);
+    })(document);
+  </script>
+  <svg class="symbolset" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="icon-mail" viewbox="0 0 1024 1024">
+      <title>Mail</title>
+      <path class="path1" d="M853.31 0h-682.62c-93.88 0-170.69 76.784-170.69 170.658v682.656c0 93.876 76.81 170.686 170.69 170.686h682.622c93.938 0 170.688-76.81 170.688-170.686v-682.656c0-93.874-76.75-170.658-170.69-170.658zM256 256h512c9.138 0 18.004 1.962 26.144 5.662l-282.144 329.168-282.144-329.17c8.14-3.696 17.006-5.66 26.144-5.66zM192 704v-384c0-1.34 0.056-2.672 0.14-4l187.664 218.94-185.598 185.6c-1.444-5.338-2.206-10.886-2.206-16.54zM768 768h-512c-5.654 0-11.202-0.762-16.54-2.206l182.118-182.118 90.422 105.496 90.424-105.494 182.116 182.118c-5.34 1.442-10.886 2.204-16.54 2.204zM832 704c0 5.654-0.762 11.2-2.206 16.54l-185.598-185.598 187.664-218.942c0.084 1.328 0.14 2.66 0.14 4v384z"></path>
+    </symbol>
+    <symbol id="icon-twitter" viewbox="0 0 1024 1024">
+      <title>Twitter</title>
+      <path class="path1" d="M853.342 0h-682.656c-93.874 0-170.686 76.81-170.686 170.69v682.624c0 93.936 76.812 170.686 170.686 170.686h682.656c93.876 0 170.658-76.75 170.658-170.69v-682.62c0-93.88-76.782-170.69-170.658-170.69zM766.478 381.48c0.252 5.632 0.38 11.296 0.38 16.988 0 173.51-132.070 373.588-373.584 373.588-74.15 0-143.168-21.738-201.276-58.996 10.272 1.218 20.724 1.84 31.322 1.84 61.518 0 118.134-20.992 163.072-56.21-57.458-1.054-105.948-39.020-122.658-91.184 8.018 1.532 16.244 2.36 24.704 2.36 11.976 0 23.578-1.61 34.592-4.61-60.064-12.066-105.326-65.132-105.326-128.75 0-0.554 0-1.104 0.012-1.652 17.7 9.834 37.948 15.742 59.47 16.424-35.232-23.546-58.414-63.736-58.414-109.292 0-24.064 6.476-46.62 17.78-66.010 64.76 79.44 161.51 131.712 270.634 137.19-2.238-9.612-3.4-19.632-3.4-29.924 0-72.512 58.792-131.298 131.304-131.298 37.766 0 71.892 15.944 95.842 41.462 29.908-5.886 58.008-16.814 83.38-31.862-9.804 30.662-30.624 56.394-57.732 72.644 26.56-3.174 51.866-10.232 75.412-20.674-17.594 26.328-39.854 49.454-65.514 67.966z"></path>
+    </symbol>
+    <symbol id="icon-feed" viewbox="0 0 1024 1024">
+      <title>RSS Feed</title>
+      <path class="path1" d="M853.34 0h-682.654c-93.876 0-170.686 76.812-170.686 170.688v682.628c0 93.934 76.812 170.684 170.688 170.684h682.652c93.876 0 170.66-76.748 170.66-170.684v-682.628c0-93.876-76.784-170.688-170.66-170.688zM278.944 831.248c-47.97 0-86.944-38.692-86.944-86.628 0-47.684 38.972-86.812 86.944-86.812 48.158 0 87.060 39.128 87.060 86.812-0.002 47.936-38.904 86.628-87.060 86.628zM497.468 831.996c0-81.81-31.808-158.818-89.46-216.444-57.714-57.75-134.376-89.626-215.904-89.626v-125.186c237.652 0 431.126 193.442 431.126 431.254l-125.762 0.002zM719.628 831.996c0-291.062-236.658-527.94-527.376-527.94v-125.248c360.002 0 652.946 293.124 652.946 653.192l-125.57-0.004z"></path>
+    </symbol>
+    <symbol id="icon-github" viewbox="0 0 1024 1024">
+      <title>Github</title>
+      <path class="path1" d="M512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM816.056 816.056c-39.518 39.516-85.512 70.532-136.708 92.186-13.006 5.5-26.214 10.328-39.6 14.492v-76.734c0-40.334-13.834-70-41.5-89 17.334-1.666 33.25-4 47.75-7s29.834-7.334 46-13 30.666-12.416 43.5-20.25 25.166-18 37-30.5 21.75-26.666 29.75-42.5 14.334-34.834 19-57 7-46.584 7-73.25c0-51.666-16.834-95.666-50.5-132 15.334-40 13.666-83.5-5-130.5l-12.5-1.5c-8.666-1-24.25 2.666-46.75 11s-47.75 22-75.75 41c-39.666-11-80.834-16.5-123.5-16.5-43 0-84 5.5-123 16.5-17.666-12-34.416-21.916-50.25-29.75s-28.5-13.166-38-16-18.334-4.584-26.5-5.25-13.416-0.834-15.75-0.5-4 0.666-5 1c-18.666 47.334-20.334 90.834-5 130.5-33.666 36.334-50.5 80.334-50.5 132 0 26.666 2.334 51.084 7 73.25s11 41.166 19 57 17.916 30 29.75 42.5 24.166 22.666 37 30.5 27.334 14.584 43.5 20.25 31.5 10 46 13 30.416 5.334 47.75 7c-27.334 18.666-41 48.334-41 89v78.23c-15.098-4.494-29.98-9.804-44.6-15.988-51.194-21.654-97.188-52.67-136.706-92.186-39.516-39.518-70.534-85.512-92.186-136.708-22.398-52.958-33.756-109.262-33.756-167.348s11.358-114.39 33.758-167.35c21.654-51.194 52.67-97.188 92.186-136.706s85.512-70.534 136.706-92.186c52.96-22.4 109.264-33.758 167.35-33.758s114.39 11.358 167.35 33.758c51.196 21.654 97.19 52.67 136.708 92.186 39.516 39.516 70.532 85.512 92.186 136.706 22.398 52.96 33.756 109.264 33.756 167.35s-11.358 114.39-33.758 167.35c-21.654 51.194-52.67 97.19-92.186 136.706z"></path>
+    </symbol>
+    <symbol id="icon-clock" viewbox="0 0 1024 1024">
+        <title>Clock</title>
+        <path class="path1" d="M658.744 749.256l-210.744-210.746v-282.51h128v229.49l173.256 173.254zM512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM512 896c-212.078 0-384-171.922-384-384s171.922-384 384-384c212.078 0 384 171.922 384 384s-171.922 384-384 384z"></path>
+        </symbol>
+  </defs>
+</svg>
+
+  <script id="dsq-count-scr" src="//franktaillandier.disqus.com/count.js" async></script>
+  <script>if ("serviceWorker" in navigator) {navigator.serviceWorker.register("/sw.js").then(function(registration) {console.log("ServiceWorker registration successful with scope: ",    registration.scope);}).catch(function(err) {console.log("ServiceWorker registration failed: ", err);});}</script>
+</body>
+
+</html><!-- Proudly Powered by GitHub | Generated 2016-10-24 23:18:36 +0200 | Revision c253717fb77c548d4ecec55dfa89b7cfa9ded749 -->

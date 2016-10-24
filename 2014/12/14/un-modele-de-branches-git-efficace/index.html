@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Begin Jekyll SEO tag v2.0.0 -->
+<title>Un modèle de branches Git efficace - Frank Taillandier</title>
+<meta property="og:title" content="Un modèle de branches Git efficace">
+<meta name="description" content="Traduction française de l’article de Vincent Driessen, à la base de Git Flow.">
+<meta property="og:description" content="Traduction française de l’article de Vincent Driessen, à la base de Git Flow.">
+<link rel="canonical" href="http://frank.taillandier.me/2014/12/14/un-modele-de-branches-git-efficace/">
+<meta property="og:url" content="http://frank.taillandier.me/2014/12/14/un-modele-de-branches-git-efficace/">
+<meta property="og:site_name" content="Frank Taillandier">
+<meta property="og:image" content="http://nvie.com/img/git-model@2x.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2014-12-14T00:00:00+01:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@DirtyF">
+<meta name="twitter:creator" content="@DirtyF">
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Un modèle de branches Git efficace",
+    "image": "http://nvie.com/img/git-model@2x.png",
+    "datePublished": "2014-12-14T00:00:00+01:00",
+    "description": "Traduction française de l’article de Vincent Driessen, à la base de Git Flow.",
+    "logo": "http://frank.taillandier.me/assets/img/frank-taillandier.jpg",
+    "url": "http://frank.taillandier.me/2014/12/14/un-modele-de-branches-git-efficace/"
+  }
+</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- CSS -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="/assets/css/main.css?v=c253717fb77c548d4ecec55dfa89b7cfa9ded749">
+
+  <link type="application/atom+xml" rel="alternate" href="http://frank.taillandier.me/feed.xml" title="Frank Taillandier">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicons/apple-touch-icon-57x57.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/favicons/apple-touch-icon-60x60.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/favicons/apple-touch-icon-72x72.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/favicons/apple-touch-icon-76x76.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/favicons/apple-touch-icon-114x114.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/favicons/apple-touch-icon-120x120.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/favicons/apple-touch-icon-144x144.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/favicons/apple-touch-icon-152x152.png?v=kPPNM6zR4x">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180.png?v=kPPNM6zR4x">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png?v=kPPNM6zR4x" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-194x194.png?v=kPPNM6zR4x" sizes="194x194">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png?v=kPPNM6zR4x" sizes="96x96">
+<link rel="icon" type="image/png" href="/assets/favicons/android-chrome-192x192.png?v=kPPNM6zR4x" sizes="192x192">
+<link rel="icon" type="image/png" href="/assets/favicons/favicon-16x16.png?v=kPPNM6zR4x" sizes="16x16">
+<link rel="manifest" href="/assets/favicons/manifest.json?v=kPPNM6zR4x">
+<link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg?v=kPPNM6zR4x" color="#757575">
+<link rel="shortcut icon" href="/assets/favicons/favicon.ico?v=kPPNM6zR4x">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/assets/favicons/mstile-144x144.png?v=kPPNM6zR4x">
+<meta name="msapplication-config" content="/assets/favicons/browserconfig.xml?v=kPPNM6zR4x">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Profiles -->
+  <link type="text/plain" rel="author" href="/humans.txt">
+  <link rel="meta" type="application/rdf+xml" title="FOAF" href="/foaf.rdf">
+
+  <!-- Analytics-->
+  
+    <meta name="google-site-verification" content="KhnXRq1e9zCBkD6X4vs_xwVc-6c-5an2vE7f0_-XMiE">
+  
+
+  <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-15560088-1', 'auto');
+ga('require', 'eventTracker', {
+  attributePrefix: 'data-ga-'
+});
+ga('require', 'outboundLinkTracker');
+ga('require', 'cleanUrlTracker', {
+  stripQuery: true
+});
+ga('require', 'pageVisibilityTracker', {
+  fieldsObj: {
+    nonInteraction: null
+  }
+});
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<script async src="/assets/js/autotrack.js"></script>
+
+</head>
+
+
+<body>
+
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Consultant web</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Accueil</a>
+
+    
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="/a-propos/" data-ga-category="sidebar" data-ga-event="click" data-ga-label="À propos">À propos</a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <ul class="social inline">
+      
+      
+      <li>
+        <a rel="me" title="S'abonner au flux" href="/feed.xml" data-ga-category="sidebar" data-ga-event="click" data-ga-label="feed"><svg width="16" height="20" class="icon icon-feed"><use xlink:href="#icon-feed"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="M'envoyer un mail" href="mailto:frank@taillandier.me" data-ga-category="sidebar" data-ga-event="click" data-ga-label="mail"><svg width="16" height="20" class="icon icon-mail"><use xlink:href="#icon-mail"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="Me suivre sur Twitter" href="https://twitter.com/DirtyF" data-ga-category="sidebar" data-ga-event="click" data-ga-label="twitter"><svg width="16" height="20" class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a>
+      </li>
+      
+      <li>
+        <a rel="me" title="Me suivre sur GitHub" href="https://github.com/DirtyF" data-ga-category="sidebar" data-ga-event="click" data-ga-label="github"><svg width="16" height="20" class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
+      </li>
+      
+    </ul>
+
+  </div>
+  <div class="sidebar-item">
+    <p>
+      © 2016
+    </p>
+  </div>
+</div>
+
+
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+  <div class="wrap">
+    <div class="masthead">
+      <div class="container">
+        <h3 class="masthead-title">
+            <a href="/" title="Home">Frank Taillandier</a>
+            <small>Consultant web</small>
+          </h3>
+      </div>
+    </div>
+
+    <div class="container content">
+      <div class="post">
+  <h1 class="post-title">Un modèle de branches Git efficace</h1>
+  <span class="post-date">
+    
+      14
+
+décembre
+
+ 2014
+
+    
+  </span>
+  
+<span class="post-read-time" title="Temps de lecture estimé à 15 minutes">·  <svg width="16" height="20" class="icon icon-clock"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use></svg>
+  
+    15 minutes
+  
+</span>
+
+
+  <p><em>Traduction de <a href="http://nvie.com/posts/a-successful-git-branching-model/">l’article </a> de Vincent Driessen.</em></p>
+
+<p>Dans cet article je présente le modèle de développement que j’ai  commencé à utiliser pour tous mes projets (professionnels et personnels) depuis 1 an, et qui s’est avéré être très efficace. Cela fait un moment que je voulais écrire à son propos, mais je n’avais pas vraiment tout à fait pris le temps de le faire, jusqu’à maintenant. Je ne vais pas parler des détails des projets, simplement de la stratégie de ramification et la gestion des versions.</p>
+
+<!-- excerpt -->
+
+<p><img src="http://nvie.com/img/git-model@2x.png" alt="modèle de branches Git"></p>
+
+<p>C’est axé autour de Git comme outil de versionnement pour tout le code source.</p>
+
+<h2 id="pourquoi-git-">Pourquoi Git ?</h2>
+
+<p>Pour une discussion en détails sur les avantages et les inconvénients de Git comparé à des systèmes centralisés de contrôle du code source, <a href="http://www.whygitisbetterthanx.com">regardez</a> sur le <a href="https://git.wiki.kernel.org/index.php/GitSvnComparsion">web</a>. Il y a plein d’échanges de points de vue qui continuent sur le web.
+En tant que développeur, je préfère Git à tous les autres outils qui existent aujourd’hui. Git a vraiment changé la manière dont les développeurs pensent la fusion et la bifurcation. Dans le monde des classiques CVS/ Subversion d’où je viens, fusionner/ramifier a toujours été considéré comme quelque chose d’un peu effrayant (attention aux conflits après une fusion, ils mordent !) et c’est une opération qu’on ne fait que de temps à autre.</p>
+
+<p>Mais avec Git, ces opérations sont très peu couteuses et très simples et elles sont vraiment considérées comme partie intégrante de votre manière de travailler au quotidien. Par examples dans les <a href="http://svnbook.red-bean.com">livres</a> sur CVS/Subversion, la création de branche et la fusion ne sont évoquées que dans les derniers chapitres (pour les utilisateurs avancés), alors que dans <a href="https://pragprog.com/book/tsgit/pragmatic-version-control-using-git">n’importe quel livre sur Git</a>, c’est un sujet couvert dès le chapitre 3 (les bases).</p>
+
+<p>Grâce à sa simplicité et à sa nature répétitive, la bifurcation et la fusion ne sont plus quelque chose à redouter. Les outils de contrôle de version sont avant tout supposés aider dans la bifurcation/fusion.</p>
+
+<p>Assez parlé des outils, voyons maintenant le modèle de développement. Le modèle que je présente ici n’est rien d’autre qu’un ensemble de procédures que chaque membre de l’équipe doit respecter pour parvenir à un processus de gestion de développement logiciel.</p>
+
+<h2 id="dcentralis-mais-centralis">Décentralisé mais centralisé</h2>
+
+<p>La configuration de dépôt que nous utilisons et qui marche bien avec ce modèle de développement, est celle avec un « vrai » dépôt central. Notez que ce dépôt est simplement <em>considéré</em> comme étant le dépôt central (puisque Git est une système de version décentralisé, techniquement il n’existe pas de dépôt central en tant que tel.). Nous ferons référence à ce dépôt comme <code class="highlighter-rouge">origin</code>, puisque tous les utilisateurs de Git sont familiers avec ce nom.</p>
+
+<p><img src="http://nvie.com/img/centr-decentr@2x.png" alt="Des dépôts centralisés et un dépôt central"></p>
+
+<p>Chaque développeur <code class="highlighter-rouge">pull</code> et <code class="highlighter-rouge">push</code> sur <code class="highlighter-rouge">origin</code>. Mais au delà de la relation centralisée push-pull, chaque développeur peut aussi récupérer des changements d’autres équipiers pour former des sous-équipes. Par exemple, cela peut s’avérer utile quand deux ou plusieurs développeurs travaillent ensemble sur une fonctionnalité, plutôt que de pousser prématurément le travail en cours sur <code class="highlighter-rouge">origin</code>. Dans l’illustration ci-dessus,  il y a des sous-équipes d’Alice et Bob, Alice et David et Claire et David.</p>
+
+<p>Techniquement, cela veut simplement dire qu’Alice a défini un dépôt disant, nommé <code class="highlighter-rouge">bob</code>, qui point vers le dépôt de Bobo et inversement.</p>
+
+<h2 id="les-branches-principales">Les branches principales</h2>
+
+<p>A la base, ce modèle de développement s’inspire fortement de modèles existants. Le dépôt central héberge les deux branches principales qui ont une durée de vie infinie :</p>
+
+<ul>
+  <li><code class="highlighter-rouge">master</code></li>
+  <li><code class="highlighter-rouge">develop</code></li>
+</ul>
+
+<p>Les branches <code class="highlighter-rouge">master</code> et <code class="highlighter-rouge">origin</code> devraient être familières pour tout utilisateur de Git. Parallèlement à la branch <code class="highlighter-rouge">master</code>, une autre branche appelée <code class="highlighter-rouge">develop</code> est présente.</p>
+
+<p>Nous considérons <code class="highlighter-rouge">origin/master</code> comme étant la branche principale où le code source de <code class="highlighter-rouge">HEAD</code> reflète l’état de <em>prêt pour la production</em>.</p>
+
+<p>Nous considérons <code class="highlighter-rouge">origin/develop</code> comme étant la branche principale où le code source de <code class="highlighter-rouge">HEAD</code> reflète les derniers changements livrés pour la prochaine version. Certains l’appelleraient « branche d’intégration ». C’est à partir de cet emplacement que sont compilées les versions quotidiennes.</p>
+
+<p>Quand le code source dans la branche <code class="highlighter-rouge">develop</code> est considéré stable et prête à être livré, tous les changements doivent être fusionnés dans <code class="highlighter-rouge">master</code> puis se voient assignés d’un numéro de version. Nous verrons comment faire cela en détails plus loin.</p>
+
+<p>En conséquence, à chaque fois que des changements sont reportés dans <code class="highlighter-rouge">master</code>, <em>par définition</em> c’est une nouvelle version de production. Nous devons être très strict avec ceci, pour qu’hypothétiquement nous puissions utilise un hook script Git pour automatiquement compiler et déployer notre logiciel sur nos serveurs de production à chaque fois qu’il y a un commit sur <code class="highlighter-rouge">master</code>.</p>
+
+<h2 id="les-branches-de-support">Les branches de support</h2>
+
+<p>A côté des branches principales <code class="highlighter-rouge">master</code> et <code class="highlighter-rouge">develop</code>, notre modèle de développement utilise une variété de branches de support pour aider le développement en parallèle entre les membres de l’équipe, faciliter le suivi des fonctionnalités, préparer les versions de productions et nous aider à réparer rapidement les problèmes survenus en production.
+Contrairement aux branches principales, ces branches ont toujours une durée de vie limitée, puisqu’elles seront effacées au final.</p>
+
+<p>Les différents types de branches que nous pouvons utiliser sont :</p>
+
+<ul>
+  <li>les branches pour les fonctionnalités</li>
+  <li>les branches pour les versions</li>
+  <li>les branches de correctifs</li>
+</ul>
+
+<p>Chacune de ces branches a un but précis et elles obéissent à  des règles strictes comme de quelles branches elles peuvent provenir et dans quelles branches elles peuvent être fusionnées. Nous allons voir comment dans quelques minutes.</p>
+
+<p>Ce ne sont en aucun cas des branches « spéciales » d’un point de vue technique. Les types de branche sont catégorisés par la façon dont nous les <em>utilisons</em>. Ce sont bien sur de bonnes vieilles branches Git.</p>
+
+<h2 id="les-branches-de-fonctionnalit">Les branches de fonctionnalité</h2>
+
+<dl>
+<dt>Peuvent provenir de :</dt>
+<dd><code>develop</code></dd>
+<dt>Doivent être fusionnées dans :</dt>
+<dd><code>develop</code></dd>
+<dt>Convention de nommage de la branche :</dt>
+<dd>Tout sauf <code>master</code>, <code>develop</code>, <code>release-*</code> ou <code>hotfix-*</code>.</dd>
+</dl>
+
+<p>Les branches de fonctionnalités (parfois appelées branches de thème) sont utilisées pour développer de nouvelles fonctionnalités pour la prochaine version ou pour une future. Au début du développement d’une fonctionnalité, la version cible dans laquelle cette fonctionnalité sera ajoutée peut très bien être inconnue à cet instant. L’raison d’être d’une branche de fonctionnalité est qu’elle existe tant que la fonctionnalité est en cours de développement, mais sera finalement fusionnée dans <code class="highlighter-rouge">develop</code> (pour ajouter la fonctionnalité à la prochaine version) ou abandonnée (dans le cas d’une expérience décevante).</p>
+
+<p>Les branches de fonctionnalités n’existent typiquement que dans les dépôts des développeurs, pas sur <code class="highlighter-rouge">origin</code>.</p>
+
+<h3 id="crer-une-branche-de-fonctionnalit">Créer une branche de fonctionnalité</h3>
+
+<p>Lorsqu’on commence à travailler sur une nouvelle fonctionnalité, partez de la branche <code class="highlighter-rouge">develop</code> :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git checkout -b myfeature develop
+Switched to a new branch <span class="s2">"myfeature"</span>
+</code></pre>
+</div>
+
+<h3 id="incorporer-une-fonctionnalit-termine-dans-develop">Incorporer une fonctionnalité terminée dans develop</h3>
+
+<p>Les fonctionnalités terminées peuvent être fusionnées dans la branche <code class="highlighter-rouge">develop</code> pour être ajoutées à la prochaine version :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git checkout develop
+Switched to branch <span class="s1">'develop'</span>
+<span class="gp">$ </span>git merge --no-ff myfeature
+Updating ea1b82a..05e9557
+<span class="o">(</span>Résumé des changements<span class="o">)</span>
+<span class="gp">$ </span>git branch -d myfeature
+Deleted branch myfeature <span class="o">(</span>was 05e9557<span class="o">)</span>.
+<span class="gp">$ </span>git push origin develop
+</code></pre>
+</div>
+
+<p>L’option <code class="highlighter-rouge">—no-ff</code> va créer un nouveau commit lors de la fusion, même si la fusion aurait pu se faire avec un fast-forward. Cela évite de perdre l’information de l’existence historique d’une branche de fonctionnalité et groupe ensemble tous les commits qui ont été ajoutés à la fonctionnalité.
+Comparez :</p>
+
+<p><img src="http://nvie.com/img/merge-without-ff@2x.png" alt="Fusion avec et sans l’option fast-foward"></p>
+
+<p>Dans le deuxième cas, il est impossible de voir à partir de l’historique de Git quel groupe de commits a implémenté une fonctionnalité - il faudrait lire manuellement tous les messages de logs. Supprimer une fonctionnalité ( c’est à dire un ensemble de commits) est un vrai casse-tête dans la deuxième situation, alors que c’est facilement à faire quand l’option <code class="highlighter-rouge">—no-ff</code> a été utilisée.</p>
+
+<p>Oui, cela va créer quelques commits (vides) supplémentaires, mais le gain est tellement supérieur au coût.</p>
+
+<p>Malheureusement, je n’ai pas encore trouvé de manière de faire de —no-ff l’option par défaut de git merge, mais ça devrait vraiment l’être.</p>
+
+<h2 id="les-branches-de-version">Les branches de version</h2>
+
+<dl>
+<dt>Peuvent provenir de :</dt>
+<dd><code>develop</code></dd>
+<dt>Doivent être fusionnées dans :</dt>
+<dd>
+<code>develop</code> et <code>master</code>
+</dd>
+<dt>Convention de nommage de la branche :</dt>
+<dd>
+<code>release-*</code>&lt;/develop&gt;</dd>
+</dl>
+
+<p>Les branches de version servent à préparer les nouvelles versions de production. Elles permettent les optimisations de dernière minute. De plus elles permettent la correction d’anomalies mineures et la préparation des méta-données pour une version (numéro, date de compilation, etc.). En faisant tout ce travail sur une branche de version, la branche <code class="highlighter-rouge">develop</code> peut incorporer des fonctionnalités pour la prochaine version majeure.</p>
+
+<p>Le bon moment pour créer une nouvelle branche de version depuis <code class="highlighter-rouge">develop</code> est quand <code class="highlighter-rouge">develop</code> reflète l’état désiré de la nouvelle version. A minima toutes les fonctionnalités visées pour la version à venir doivent être fusionnées dans <code class="highlighter-rouge">develop</code> à ce moment-là. Toutes les fonctionnalités visées pour les prochaines versions ne le sont pas - elles doivent attendre jusqu’à ce que la branche de version bifurque.</p>
+
+<p>C’est précisément au début d’une branche de version que la prochaine version se voit assigné un numéro de version - et pas avant. Avant ce moment, la branche <code class="highlighter-rouge">develop</code> reflète les changements pour la « prochaine version » mais sans forcément savoir si cette « prochaine version » sera la 0.3 ou la 1.0, du moins pas avant que la branche de version soit créé. Cette décision est prise au début de la nouvelle branche de version et dépend des règles mise en place sur les changements de numéros de version.</p>
+
+<h3 id="crer-une-branche-de-version">Créer une branche de version</h3>
+
+<p>Les branches de version sont créées à partir de la branche <code class="highlighter-rouge">develop</code>. Par exemple, disons que la version 1.1.5 est la version courante de production et que nous avons une nouvelle version majeure qui arrive. L’état de <code class="highlighter-rouge">develop</code> est prêt pour la « prochaine version » et nous avons décidé que cela deviendra la version 1.2 (plutôt que 1.1.6 ou 2.0). Donc nous bifurquons et donnons à la branche de version un nom qui reflète le nouveau numéro de version :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git checkout -b release-1.2 develop
+Switched to a new branch <span class="s2">"release-1.2"</span>
+<span class="gp">$ </span>./bump-version.sh 1.2
+Files modified successfully, version bumped to 1.2.
+<span class="gp">$ </span>git commit -a -m <span class="s2">"Bumped version number to 1.2"</span>
+<span class="o">[</span>release-1.2 74d9424] Bumped version number to 1.2
+1 files changed, 1 insertions<span class="o">(</span>+<span class="o">)</span>, 1 deletions<span class="o">(</span>-<span class="o">)</span>
+</code></pre>
+</div>
+
+<p>Après avoir crée une nouvelle branche, et nous être positionné dessus, nous incrémentons le numéro de version. Ici, <code class="highlighter-rouge">bump-version.sh</code> est un script shell fictif qui change quelques fichiers dans notre dossier de travail pour refléter la nouvelle version. (Cela peut bien évidemment être un changement manuel - le propos étant que <em>certains</em> fichiers changent.)Puis, le changement de numéro de version est enregistré.</p>
+
+<p>Cette nouvelle branche pourra exister pendant un moment, jusqu’à ce que la version soit déployée pour de bon. Pendant ce temps, des correctifs pourront être appliqués à cette branche (plutôt que sur la branche <code class="highlighter-rouge">develop</code>, et par conséquent en attendant la prochaine version majeure.</p>
+
+<h3 id="finaliser-une-branche-de-version">Finaliser une branche de version</h3>
+
+<p>Quand l’état de la branche de version est prêt à deviner une vraie version, quelques actions doivent êtres effectuées. Premièrement, la branche de release est fusionnée dans <code class="highlighter-rouge">master</code> (puisque chaque commit sur <code class="highlighter-rouge">master</code> est une nouvelle version <em>par définition</em>, souvenez-vous). Ensuite, ce commit sur <code class="highlighter-rouge">master</code> doit être targué pour  pouvoir faire simplement référence par la suite à cette version historique. Enfin, les changements fais sur la branche de version doivent être reversés dans <code class="highlighter-rouge">develop</code>, afin que les version futures contiennent aussi ces correctifs.</p>
+
+<p>Les deux premieres étapes dans Git :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git checkout master
+Switched to branch <span class="s1">'master'</span>
+<span class="gp">$ </span>git merge --no-ff release-1.2
+Merge made by recursive.
+<span class="o">(</span>Résumé des changements<span class="o">)</span>
+<span class="gp">$ </span>git tag -a 1.2
+</code></pre>
+</div>
+
+<p>La version est maintenant terminée et targuée pour toute référence future.</p>
+
+<p>Remarque : Vous pouvez tout aussi bien vouloir utiliser les options <code class="highlighter-rouge">-s</code> or <code class="highlighter-rouge">-u</code> <code class="highlighter-rouge">&lt;clef&gt;</code> pour signer votre tag de manière chiffrée.</p>
+
+<p>Pour garder les changements effectués dans la branche de version, nous avons besoin de les fusionner dans <code class="highlighter-rouge">develop</code>. Avec Git :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git checkout develop
+Switched to branch <span class="s1">'develop'</span>
+<span class="gp">$ </span>git merge --no-ff release-1.2
+Merge made by recursive.
+<span class="o">(</span>Résumé des changements<span class="o">)</span>
+</code></pre>
+</div>
+
+<p>Cette étape peut mener à une conflit de fusion (probablement même, puisque nous avons changé le numéro de version. Si c’est le cas, corrigez-le et comptez.</p>
+
+<p>Maintenant nous avons vraiment terminé et la branche de version peut être supprimée, puisque nous n’en avons plus besoin :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git branch -d release-1.2
+
+Deleted branch release-1.2 <span class="o">(</span>was ff452fe<span class="o">)</span>.
+</code></pre>
+</div>
+
+<h3 id="les-branches-de-correctifs">Les branches de correctifs</h3>
+
+<dl>
+<dt>Peuvent provenir de :</dt>
+<dd>`master`</dd>
+<dt>Doivent être fusionnées dans :</dt>
+<dd>`develop` et `master`</dd>
+<dt>Convention de nommage de la branche :</dt>
+<dd>`hotfix-*&lt;/develop&gt;</dd>
+</dl>
+
+<p><img src="http://nvie.com/img/hotfix-branches@2x.png" alt="Une branche de correctif"></p>
+
+<p>Les branches de correctifs ressemblent beaucoup aux branches de version, dans le sens où elles sont également destinées à préparer une nouvelle version de production, bien que non planifiées. Elles viennent de la nécessité d’agir immédiatement sur un état indésirable d’une version en production. Quand une anomalie critique doit être résolu immédiatement, une branche de  correctif peut être crée à partir du tag correspondant sur la branche master qui marque la version de production.</p>
+
+<p>L’objectif est que le travail des membres de l’équipe (sur la branche <code class="highlighter-rouge">develop</code>) puisse continuer, pendant qu’une autre personne prépare un correctif rapide pour la production.</p>
+
+<h3 id="crer-une-branche-de-correctif">Créer une branche de correctif</h3>
+
+<p>Les branches de correctif sont créées à partir de la branche <code class="highlighter-rouge">master</code>. Par exemple, disons que la version 1.2 est la version qui tourne actuellement en production et que plusieurs anomalies posent problème. Dans le même temps les modifications effectuées sur <code class="highlighter-rouge">develop</code> sont encore instables. Nous pouvons alors créer une branche de correctif et commencer à corriger le problème :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git checkout -b hotfix-1.2.1 master
+Switched to a new branch <span class="s2">"hotfix-1.2.1"</span>
+<span class="gp">$ </span>./bump-version.sh 1.2.1
+Files modified successfully, version bumped to 1.2.1.
+<span class="gp">$ </span>git commit -a -m <span class="s2">"Bumped version number to 1.2.1"</span>
+<span class="o">[</span>hotfix-1.2.1 41e61bb] Bumped version number to 1.2.1
+1 files changed, 1 insertions<span class="o">(</span>+<span class="o">)</span>, 1 deletions<span class="o">(</span>-<span class="o">)</span>
+</code></pre>
+</div>
+
+<p>N’oubliez pas de modifier le numéro de version après la création de la branche !</p>
+
+<p>Ensuite, corrigez le bug et enregistrez le correctif dans un ou plusieurs commits séparés.</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git commit -m <span class="s2">"Fixed severe production problem"</span>
+<span class="o">[</span>hotfix-1.2.1 abbe5d6] Fixed severe production problem
+5 files changed, 32 insertions<span class="o">(</span>+<span class="o">)</span>, 17 deletions<span class="o">(</span>-<span class="o">)</span>
+</code></pre>
+</div>
+
+<h3 id="finalisation-dune-branche-de-correctif">Finalisation d’une branche de correctif</h3>
+
+<p>Lorsque c’est terminé, le correctif a besoin d’être reporté dans  <code class="highlighter-rouge">master</code>, mais aussi dans <code class="highlighter-rouge">develop</code>, de manière à garantir que le correctif sera également inclus dans la prochaine version. C’est en tout point similaire à la manière dont les branches de version sont finalisées.</p>
+
+<p>Premièrement, mettez à jour <code class="highlighter-rouge">master</code> et tagguez la version :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git checkout master
+Switched to branch <span class="s1">'master'</span>
+<span class="gp">$ </span>git merge --no-ff hotfix-1.2.1
+Merge made by recursive.
+<span class="o">(</span>Résumé des modifications<span class="o">)</span>
+<span class="gp">$ </span>git tag -a 1.2.1
+</code></pre>
+</div>
+
+<p>Remarque : Vous pouvez tout aussi bien vouloir utiliser les options <code class="highlighter-rouge">-s</code> or <code class="highlighter-rouge">-u</code> <code class="highlighter-rouge">&lt;clef&gt;</code> pour signer votre tag de manière chiffrée.</p>
+
+<p>Ensuite, déployez également le correctif dans <code class="highlighter-rouge">develop</code> :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git checkout develop
+Switched to branch <span class="s1">'develop'</span>
+<span class="gp">$ </span>git merge --no-ff hotfix-1.2.1
+Merge made by recursive.
+<span class="o">(</span>Résumé des modifications<span class="o">)</span>
+</code></pre>
+</div>
+
+<p>La seule exception à la règle ici est que, <strong>lorsqu’une branche de version en cours de developpement existe, le correctif a besoin d’être reporté dans cette branche de version, plutôt que dans <code class="highlighter-rouge">develop</code></strong>. Le report de l’anomalie dans la branche de version finira par être reporté dans develop à son tour, lorsque la branche de version sera terminée. (Si le travail en cours sur develop nécessite que l’anomalie soit corrigée immédiatement sans attendre la fin de la branche de version, vous pouvez tout aussi bien reporter dès à présent le correctif également sur develop.)</p>
+
+<p>Enfin, supprimer la branche temporaire :</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="gp">$ </span>git branch -d hotfix-1.2.1
+Deleted branch hotfix-1.2.1 <span class="o">(</span>was abbe5d6<span class="o">)</span>.
+</code></pre>
+</div>
+
+<h2 id="en-rsum">En résumé</h2>
+
+<p>Bien qu’il n’y ait rien de bien révolutionnaire dans ce modèle de développement, l’illustration qui figure au début de cet article s’est révélée particulièrement utile dans nos projets. C’est un modèle mental facile à appréhender et il permet de développer une appropriation collective des processus de branches et de versions.</p>
+
+<p>Enfin, voici <a href="http://nvie.com/files/Git-branching-model.pdf">une version PDF en haute résolution du modèle</a>. Imprimez-le et accrochez le au mur pour avoir une référence sous les yeux à tout moment.</p>
+
+
+  <hr>
+
+  <footer>
+    
+      
+<div id="disqus_thread"></div>
+<script>
+  var disqus_config = function() {
+    this.page.url = 'http://frank.taillandier.me/2014/12/14/un-modele-de-branches-git-efficace/';
+    this.page.identifier = 'http://frank.taillandier.me/2014/12/14/un-modele-de-branches-git-efficace/';
+    this.page.title = 'Un modèle de branches Git efficace';
+  };
+
+  // DON'T EDIT BELOW THIS LINE
+  (function() {
+    var d = document,
+      s = d.createElement('script');
+    s.src = 'https://franktaillandier.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+
+
+    
+
+    <h2>Améliorez cet article</h2>
+    <p>Une correction à apporter ? <a href="https://github.com/DirtyF/frank.taillandier.me/edit/master/_posts/2014-12-14-un-modele-de-branches-git-efficace.md">Éditez le contenu</a>.</p>
+  </footer>
+
+</div>
+
+<div class="related">
+  <h2>Articles récents</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/10/02/ne-passons-pas-a-cote-des-choses-simples/">
+            Ne passons pas à côté des choses simples
+            <small>2
+
+octobre
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/30/dix-facons-de-rendre-un-produit-excellent/">
+            10 façons de rendre un produit excellent
+            <small>30
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/28/traitement-de-texte-multicanal/">
+            Traitement de texte multicanal
+            <small>28
+
+août
+  
+ 2016
+</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+<p>
+  Pour être informé des prochains articles, abonnez vous au <a href="/feed.xml">flux RSS</a>.
+</p>
+
+<p class="copy"></p>
+
+    </div>
+  </div>
+
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {};
+        var t = performance.timing || {};
+
+        if (!t) {
+          //fail silently
+          return;
+        }
+        var start = t.navigationStart,
+          end = t.loadEventEnd
+        loadTime = (end - start) / 1000;
+
+        var copy = document.getElementsByClassName('copy');
+        copy[0].innerHTML += "<span class='loaded'>Page chargée en <strong>" + loadTime + " secondes</strong>.</span>";
+      }, 0);
+    };
+
+    (function(document) {
+      var toggle = document.querySelector('.sidebar-toggle');
+      var sidebar = document.querySelector('#sidebar');
+      var checkbox = document.querySelector('#sidebar-checkbox');
+
+      document.addEventListener('click', function(e) {
+        var target = e.target;
+
+        if (!checkbox.checked ||
+          sidebar.contains(target) ||
+          (target === checkbox || target === toggle)) return;
+
+        checkbox.checked = false;
+      }, false);
+    })(document);
+  </script>
+  <svg class="symbolset" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="icon-mail" viewbox="0 0 1024 1024">
+      <title>Mail</title>
+      <path class="path1" d="M853.31 0h-682.62c-93.88 0-170.69 76.784-170.69 170.658v682.656c0 93.876 76.81 170.686 170.69 170.686h682.622c93.938 0 170.688-76.81 170.688-170.686v-682.656c0-93.874-76.75-170.658-170.69-170.658zM256 256h512c9.138 0 18.004 1.962 26.144 5.662l-282.144 329.168-282.144-329.17c8.14-3.696 17.006-5.66 26.144-5.66zM192 704v-384c0-1.34 0.056-2.672 0.14-4l187.664 218.94-185.598 185.6c-1.444-5.338-2.206-10.886-2.206-16.54zM768 768h-512c-5.654 0-11.202-0.762-16.54-2.206l182.118-182.118 90.422 105.496 90.424-105.494 182.116 182.118c-5.34 1.442-10.886 2.204-16.54 2.204zM832 704c0 5.654-0.762 11.2-2.206 16.54l-185.598-185.598 187.664-218.942c0.084 1.328 0.14 2.66 0.14 4v384z"></path>
+    </symbol>
+    <symbol id="icon-twitter" viewbox="0 0 1024 1024">
+      <title>Twitter</title>
+      <path class="path1" d="M853.342 0h-682.656c-93.874 0-170.686 76.81-170.686 170.69v682.624c0 93.936 76.812 170.686 170.686 170.686h682.656c93.876 0 170.658-76.75 170.658-170.69v-682.62c0-93.88-76.782-170.69-170.658-170.69zM766.478 381.48c0.252 5.632 0.38 11.296 0.38 16.988 0 173.51-132.070 373.588-373.584 373.588-74.15 0-143.168-21.738-201.276-58.996 10.272 1.218 20.724 1.84 31.322 1.84 61.518 0 118.134-20.992 163.072-56.21-57.458-1.054-105.948-39.020-122.658-91.184 8.018 1.532 16.244 2.36 24.704 2.36 11.976 0 23.578-1.61 34.592-4.61-60.064-12.066-105.326-65.132-105.326-128.75 0-0.554 0-1.104 0.012-1.652 17.7 9.834 37.948 15.742 59.47 16.424-35.232-23.546-58.414-63.736-58.414-109.292 0-24.064 6.476-46.62 17.78-66.010 64.76 79.44 161.51 131.712 270.634 137.19-2.238-9.612-3.4-19.632-3.4-29.924 0-72.512 58.792-131.298 131.304-131.298 37.766 0 71.892 15.944 95.842 41.462 29.908-5.886 58.008-16.814 83.38-31.862-9.804 30.662-30.624 56.394-57.732 72.644 26.56-3.174 51.866-10.232 75.412-20.674-17.594 26.328-39.854 49.454-65.514 67.966z"></path>
+    </symbol>
+    <symbol id="icon-feed" viewbox="0 0 1024 1024">
+      <title>RSS Feed</title>
+      <path class="path1" d="M853.34 0h-682.654c-93.876 0-170.686 76.812-170.686 170.688v682.628c0 93.934 76.812 170.684 170.688 170.684h682.652c93.876 0 170.66-76.748 170.66-170.684v-682.628c0-93.876-76.784-170.688-170.66-170.688zM278.944 831.248c-47.97 0-86.944-38.692-86.944-86.628 0-47.684 38.972-86.812 86.944-86.812 48.158 0 87.060 39.128 87.060 86.812-0.002 47.936-38.904 86.628-87.060 86.628zM497.468 831.996c0-81.81-31.808-158.818-89.46-216.444-57.714-57.75-134.376-89.626-215.904-89.626v-125.186c237.652 0 431.126 193.442 431.126 431.254l-125.762 0.002zM719.628 831.996c0-291.062-236.658-527.94-527.376-527.94v-125.248c360.002 0 652.946 293.124 652.946 653.192l-125.57-0.004z"></path>
+    </symbol>
+    <symbol id="icon-github" viewbox="0 0 1024 1024">
+      <title>Github</title>
+      <path class="path1" d="M512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM816.056 816.056c-39.518 39.516-85.512 70.532-136.708 92.186-13.006 5.5-26.214 10.328-39.6 14.492v-76.734c0-40.334-13.834-70-41.5-89 17.334-1.666 33.25-4 47.75-7s29.834-7.334 46-13 30.666-12.416 43.5-20.25 25.166-18 37-30.5 21.75-26.666 29.75-42.5 14.334-34.834 19-57 7-46.584 7-73.25c0-51.666-16.834-95.666-50.5-132 15.334-40 13.666-83.5-5-130.5l-12.5-1.5c-8.666-1-24.25 2.666-46.75 11s-47.75 22-75.75 41c-39.666-11-80.834-16.5-123.5-16.5-43 0-84 5.5-123 16.5-17.666-12-34.416-21.916-50.25-29.75s-28.5-13.166-38-16-18.334-4.584-26.5-5.25-13.416-0.834-15.75-0.5-4 0.666-5 1c-18.666 47.334-20.334 90.834-5 130.5-33.666 36.334-50.5 80.334-50.5 132 0 26.666 2.334 51.084 7 73.25s11 41.166 19 57 17.916 30 29.75 42.5 24.166 22.666 37 30.5 27.334 14.584 43.5 20.25 31.5 10 46 13 30.416 5.334 47.75 7c-27.334 18.666-41 48.334-41 89v78.23c-15.098-4.494-29.98-9.804-44.6-15.988-51.194-21.654-97.188-52.67-136.706-92.186-39.516-39.518-70.534-85.512-92.186-136.708-22.398-52.958-33.756-109.262-33.756-167.348s11.358-114.39 33.758-167.35c21.654-51.194 52.67-97.188 92.186-136.706s85.512-70.534 136.706-92.186c52.96-22.4 109.264-33.758 167.35-33.758s114.39 11.358 167.35 33.758c51.196 21.654 97.19 52.67 136.708 92.186 39.516 39.516 70.532 85.512 92.186 136.706 22.398 52.96 33.756 109.264 33.756 167.35s-11.358 114.39-33.758 167.35c-21.654 51.194-52.67 97.19-92.186 136.706z"></path>
+    </symbol>
+    <symbol id="icon-clock" viewbox="0 0 1024 1024">
+        <title>Clock</title>
+        <path class="path1" d="M658.744 749.256l-210.744-210.746v-282.51h128v229.49l173.256 173.254zM512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM512 896c-212.078 0-384-171.922-384-384s171.922-384 384-384c212.078 0 384 171.922 384 384s-171.922 384-384 384z"></path>
+        </symbol>
+  </defs>
+</svg>
+
+  <script id="dsq-count-scr" src="//franktaillandier.disqus.com/count.js" async></script>
+  <script>if ("serviceWorker" in navigator) {navigator.serviceWorker.register("/sw.js").then(function(registration) {console.log("ServiceWorker registration successful with scope: ",    registration.scope);}).catch(function(err) {console.log("ServiceWorker registration failed: ", err);});}</script>
+</body>
+
+</html><!-- Proudly Powered by GitHub | Generated 2016-10-24 23:18:36 +0200 | Revision c253717fb77c548d4ecec55dfa89b7cfa9ded749 -->
